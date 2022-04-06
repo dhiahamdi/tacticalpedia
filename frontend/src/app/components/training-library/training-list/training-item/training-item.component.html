@@ -1,0 +1,56 @@
+<div fxLayout="row" fxLayoutAlign="start center">
+
+    
+
+    <div class="info" fxFlex FlexLayout="column">
+
+        <div class="row-1" fxLayout="row" fxLayoutAlign="start center">
+
+            <div class="name" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+                <img class="avatar" [src]=trainingCover.data *ngIf="trainingCover && trainingCover.type.match('image.*')"/>
+                <video class="avatar" *ngIf="trainingCover && trainingCover.type.match('video.*')" preload="metadata">
+                    <source src="{{ trainingCover.data }}">
+                </video>
+                <span class="text-truncate">{{training.name}}</span>
+            </div>
+
+
+        </div>
+
+        <div class="row-2" fxLayout="row" fxLayoutAlign="start center">
+
+            <div fxLayout="column" fxLayoutAlign="start start">
+
+                <div class="message text-truncate">
+                    {{training.description}}
+                </div>
+
+                <div class="labels" fxLayout="row wrap" fxHide fxShow.gt-sm *ngIf="training.category">
+                    <div class="mt-4" fxLayout="row" fxLayoutAlign="start center">
+                        <div *ngFor="let cat of getCategoriesLabel()" class="blue-500 label tax-label mr-4">
+                            <div class="label-title">
+                                    {{ cat | translate }}
+                            </div> 
+                        </div>
+                    </div>
+                
+                    <div class=" mt-4" fxLayout="row" fxLayoutAlign="start center" *ngFor="let tax of getSelectTaxonomiesList(); let i = index" [attr.data-index]="i">       
+                            <div *ngFor="let tax of tax.value; last as isLast" class="label label-color-{{i+1}} tax-label mr-4">
+                                <div class="label-title">
+                                    {{ tax | translate }}
+                                </div>
+                            </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <mat-checkbox [(ngModel)]="selected" (ngModelChange)="onSelectedChange()"
+    (click)="$event.stopPropagation();"> </mat-checkbox>
+
+</div>
+

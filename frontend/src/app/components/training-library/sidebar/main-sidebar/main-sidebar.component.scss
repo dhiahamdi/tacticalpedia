@@ -1,0 +1,49 @@
+app-main-sidebar {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+    height: 100%;
+
+    .header {
+
+        .logo {
+
+            .logo-icon {
+                margin: 0 16px 0 0;
+            }
+
+            .logo-text {
+                font-size: 24px;
+                line-height: 24px;
+            }
+        }
+
+        .account {
+            width: 100%;
+        }
+    }
+    
+}
+
+::ng-deep .mat-expansion-panel {
+    box-shadow: none !important;
+    background: transparent !important;
+}
+
+::ng-deep mat-expansion-panel-header.mat-expansion-panel-header {
+    padding: 0 !important;
+}
+
+::ng-deep .mat-expansion-indicator {
+    margin-right: 15px;
+}
+
+.scroll{
+    overflow-y: auto;
+    max-height: 250px;
+}
+
+
+::ng-deep .page-layout.carded.left-sidebar.inner-scroll > .sidebar .content, .page-layout.carded.right-sidebar.inner-scroll > .sidebar .content {
+    height: calc(100vh - 280px) !important;
+}

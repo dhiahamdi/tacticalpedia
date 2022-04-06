@@ -1,0 +1,114 @@
+<!-- SIDEBAR HEADER -->
+<div fxLayout="column" fxLayoutAlign="space-between start"
+     class="header accent p-24 pb-4">
+
+    <div class="logo" fxFlex fxLayout="row" fxLayoutAlign="start center">
+        <span class="logo-text" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">{{'TRAINING_LIBRARY.TITLE' | translate}}</span>
+    </div>
+
+    <div class="account" fxLayout="column" [@animate]="{value:'*',params:{delay:'300ms'}}">
+        <div class="title">{{fullName}}</div>
+        <mat-form-field floatLabel="never">
+            <mat-select class="account-selection" placeholder="Visibility" [(value)]="visibility" 
+                (selectionChange)="setCurrentVisibility()">
+                <mat-option [value]="'private'">
+                    {{'TRAINING_LIBRARY.PRIVATE' | translate}}
+                </mat-option>
+                <mat-option [value]="'public'">
+                    {{'TRAINING_LIBRARY.PUBLIC' | translate}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+</div>
+<!-- / SIDEBAR HEADER -->
+
+<!-- SIDEBAR CONTENT -->
+<div class="content" fusePerfectScrollbar [fusePerfectScrollbarOptions]="{suppressScrollX: true}" [@animate]="{value:'*',params:{y:'50px'}}">
+
+    <div class="px-24 pt-32 pb-12">
+        <button mat-raised-button
+                class="mat-accent compose-dialog-button w-100-p"
+                aria-label="Compose"
+                (click)="addNewTraining()">
+            {{ 'TRAINING_LIBRARY.NEW' | translate }}
+        </button>
+    </div>
+    
+    <div class="nav material2">
+
+        <div style="text-align: center">
+            <h3>{{ 'TRAINING_LIBRARY.FILTERS' | translate }}</h3>
+        </div>
+        
+
+        <!-- default cateogry field -->
+        <mat-expansion-panel>
+
+            <mat-expansion-panel-header>
+                <div class="nav-subheader">{{ 'TRAINING_LIBRARY.CATEGORIES' | translate }}</div>
+            </mat-expansion-panel-header>
+
+            <div class="nav-item">
+                <a class="nav-link" matRipple (click)="setCurrentCategory(null)" [ngClass]=" (!currentCategory) ? 'active accent' : ''" >
+                    <mat-icon class="nav-link-icon">{{'folder.icon'}}</mat-icon>
+                    <span>{{'TRAINING_LIBRARY.ALL' | translate}}</span>
+                </a>
+            </div>
+        
+
+            <div class="nav-item" *ngFor="let cat of categories">
+                <a class="nav-link" matRipple (click)="setCurrentCategory(cat)" [ngClass]="(currentCategory && cat.active) ? 'active accent' : ''">
+                    <mat-icon class="nav-link-icon">{{'folder.icon'}}</mat-icon>
+                    <span>{{cat.label | translate}}</span>
+                </a>
+            </div>
+
+            
+
+        </mat-expansion-panel>
+
+        <!-- Custom select taxonomies -->
+        <div *ngFor="let tax of selectTaxonomies">
+
+            <mat-expansion-panel>
+
+                <mat-expansion-panel-header>
+                    <div class="nav-subheader">{{ tax.name | translate}}</div>
+                </mat-expansion-panel-header>
+
+                <div class="nav-item">
+                    <a class="nav-link" matRipple (click)="setCurrentTaxonomies(tax, null)"  [ngClass]="(!currentSelectTaxonomies || !currentSelectTaxonomies[tax.name] ) ? 'active accent' : ''">
+                        <mat-icon class="nav-link-icon">{{'folder.icon'}}</mat-icon>
+                        <span>{{'TRAINING_LIBRARY.ALL' | translate}}</span>
+                    </a>
+                </div>
+
+                <div class="nav-item" *ngFor="let option of tax.options">
+                    <a class="nav-link" matRipple (click)="setCurrentTaxonomies(tax, option)" [ngClass]="tax.active === option ? 'active accent' : ''">
+                        <mat-icon class="nav-link-icon">{{'folder.icon'}}</mat-icon>
+                        <span>{{option | translate}}</span>
+                    </a>
+                </div>
+                
+            </mat-expansion-panel>
+
+        </div>
+
+
+    </div>
+
+    <div class="px-24 pt-32 pb-12">
+        <button mat-raised-button
+                class="mat-accent compose-dialog-button w-100-p"
+                aria-label="Compose"
+                (click)="resetFilters()">
+            {{ 'TRAINING_LIBRARY.RESET_FILTERS' | translate }}
+        </button>
+
+    </div>
+
+</div>
+<!-- / SIDEBAR CONTENT -->
+

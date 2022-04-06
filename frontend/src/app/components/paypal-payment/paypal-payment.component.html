@@ -1,0 +1,22 @@
+<ngx-paypal
+    #monthly
+    [config]="configs['monthly']"
+    [registerScript]="false"
+    *ngIf="subscription_type === 'monthly'"
+    ></ngx-paypal>
+
+<ngx-paypal
+    #yearly
+    [config]="configs['yearly']"
+    [registerScript]="false"
+    *ngIf="subscription_type === 'yearly'"
+    ></ngx-paypal>
+
+<ngx-paypal
+    #company
+    [config]="configs['company']"
+    [registerScript]="false"
+    *ngIf="subscription_type === 'company'"
+    ></ngx-paypal>
+
+

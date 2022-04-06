@@ -1,0 +1,27 @@
+.fuse-card {
+    margin: auto;
+}
+
+.card-image-container {
+    width: 100%;
+    max-height: 200px;
+}
+
+.card-image {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+}
+
+.border-top-gray {
+    border-top: 1px solid gainsboro;
+}
+
+.top-radius {
+    border-radius: 8px 8px 0px 0px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+

@@ -1,0 +1,38 @@
+.description {
+    display: grid;
+    padding-left: 2vw;
+    padding-top: 1vw;
+    textarea {
+        max-width: 50%;
+    }
+    label {
+        font-weight: bold;
+    }
+    mat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 40px;
+      }
+}
+.itemshoris{
+    textarea {
+width: 40%;
+float: right;
+margin-top: 18vw;
+margin-right: 3vw;
+max-width: 30vw;
+}
+label{
+    margin-top: 15vw;
+    position: absolute;
+    margin-left: 62vw;
+    font-weight: bolder;
+}
+
+}
+.avatar{
+    float: right;
+    padding-left: 2vw;
+    margin-top: 2vw;
+    font-size: 9vw;
+}

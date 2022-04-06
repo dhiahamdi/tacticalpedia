@@ -1,0 +1,97 @@
+<div *ngIf="!training" fxLayout="column" fxLayoutAlign="center center" fxFlex>
+    <mat-icon class="s-128 mb-16 select-message-icon hint-text"
+              [@animate]="{value:'*',params:{delay:'300ms',scale:'0.2'}}">
+        email
+    </mat-icon>
+    <span class="select-message-text hint-text" [@animate]="{value:'*',params:{delay:'400ms'}}">
+        <span>{{ 'TRAINING_DETAIL.SELECT_TRAINING_TO_READ' | translate}}</span>
+    </span>
+</div>
+
+
+
+<div *ngIf="training">
+
+    <div class="mail-header">
+
+        <div>
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <div class="subject">{{training.name}}</div>
+            </div>
+
+            <div fxLayout="row" class="mt-24">
+                <button mat-raised-button color="accent" class="training-action-button" style="margin-left: 0px" [routerLink]="['/training/'+ training._id]"> Dettaglio <mat-icon>launch</mat-icon></button>
+                <button mat-raised-button color="accent" class="training-action-button" [routerLink]="['/training/edit/'+ training._id]"> Modifica <mat-icon>edit</mat-icon></button>
+            </div>
+
+            <div fxLayout="row" class="mt-24">
+                <ng-image-slider (imageClick)="fullscreen('open')" [imageSize]="{width: '100%', height:'30%'}" *ngIf="imageObject.length > 0" [manageImageRatio]="true" [images]="imageObject" [videoAutoPlay]="true" fxFlex="100" (lightboxClose)="fullscreen('close')"></ng-image-slider>
+            </div>
+            
+            <div class="labels mt-24" fxLayout="row wrap">
+
+                <div class="label mt-4" fxLayout="row" fxLayoutAlign="start center" *ngIf="getCategoriesList()">
+                    <div class="label-color"></div>
+                    <div class="label-title">
+                        <ng-container *ngFor="let cat of getCategoriesList(); last as isLast" class="blue-500 tax-label">
+                            {{ cat | translate }}<ng-container *ngIf="!isLast">{{ ', ' }}</ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+
+                <div class="label mt-4" fxLayout="row" fxLayoutAlign="start center" *ngFor="let tax of getSelectTaxonomiesList(); let i = index" [attr.data-index]="i">
+                    <div class="label-color label-color-{{i+1}}"></div>
+                    <div class="label-title">
+                        <ng-container *ngFor="let tax of tax.value; last as isLast" class="blue-500 tax-label">
+                            {{ tax | translate }}<ng-container *ngIf="!isLast">{{ ', ' }}</ng-container>
+                        </ng-container>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- <img alt="{{'mail.from.name'}}"
+                        src="assets/images/training-placeholder.png"/> -->
+                        
+        <!-- <img src="assets/images/training-placeholder.png" fxFlex="40"> -->
+
+        <div class="fields-grid">
+            <div *ngFor="let tax of trainingTaxonomies" class="label-title fields-grid-item">
+               <span>{{tax.label | translate}}:</span> {{tax.value}}
+            </div>
+        </div>
+
+        <div class="mail-content">
+            
+            <div *ngIf="training.description" class="left">
+                <h4>{{'TRAINING_DETAIL.DESCRIPTION'| translate}}</h4>
+                <p class='description'>{{training.description}}</p>
+            </div>
+            
+        </div>
+
+
+        <div class="mail-attachments" *ngIf="filePaths.length">
+
+            <div class="title">
+                <span>{{'TRAINING_DETAIL.ATTACHMENTS' | translate}}</span>
+            </div>
+
+            <div class="attachment-list" fxLayout="row wrap">
+
+                <div class="attachment" fxLayout="column" *ngFor="let f of filePaths">
+
+                    <img class="preview pointer" src="assets/images/file-manager/attachment-default.png" (click)="openfile(f)">
+
+                    <a class="pointer" (click)="openfile(f)">{{f.name}}</a>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>

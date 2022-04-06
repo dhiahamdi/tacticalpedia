@@ -1,0 +1,694 @@
+<div id="order" class="page-layout carded fullwidth inner-scroll" *ngIf="isDataLoaded">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent"
+             fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center" class="header-row">
+
+                <button mat-icon-button class="mr-16" (click)="goBack()">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                     [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">
+                        {{training.name}}  <mat-icon class="edit-icon" [routerLink]="['/training/edit/' + training._id ]" *ngIf="training && user && user._id == training.user_id">edit</mat-icon>
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>{{'SINGLE_TRAINING.FROM' | translate}} </span>
+                        <span>{{authorName}}</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content" [ngStyle]="{ 'display': fullscreenOpen ? 'flex': 'block' }">
+
+
+                <div fxFlex="100%" style="display: none" *ngIf="fullscreenOpen"></div>
+
+                <mat-tab-group dynamicHeight="true" selectedIndex="{{ selectedTab }}">
+
+                    <mat-tab label="{{'SINGLE_TRAINING.DETAILS' | translate}}">
+                        <div fxLayout='column'  class="content-wrapper">
+                    
+                            <div fxLayout='row' fxLayout.lt-sm="column" fxLayoutAlign="start" class="mt-48">
+        
+                                <span fxFlex></span>
+                                
+                                <div fxLayout='column' fxFlex="1 1 calc(70%)" fxFlex.lt-sm="100%">
+                                    
+
+                                    <ng-image-slider (imageClick)="fullscreen('open')" *ngIf="imageObject.length > 0" class="tax-tab" [imageSize]="{width: '100%', height:'50%'}" [manageImageRatio]="true" [images]="imageObject" [videoAutoPlay]="true"  #nav (lightboxClose)="fullscreen('close')"></ng-image-slider>
+        
+
+                                    <div class="tax-tab" fxLayout="row wrap" fxLayoutAlign="start">
+            
+                                        <div class="about-content" 
+                                        fxLayout="column" 
+                                        fxLayout.lt-sm="column" 
+                                        fxLayoutAlign.lt-sm="center center"  
+                                        fxFlex 
+                                        fxFlex.lt-sm="1 1 calc(50%)"
+                                        fxFlex="1 1 calc(33%)" 
+                                        *ngFor="let tax of trainingTaxonomies"> 
+                                            <!-- fxFlex.gt-sm="50" fxFlex.gt-md="65" -->
+
+                                            <div class="content" fxLayout="column" style="width: 100%">
+
+                                                <div class="info-line mb-8 text-center" fxLayout="column" >
+
+                                                    <div class="tab-tax-header" fxLayout="column">{{ tax.label | translate}}</div>
+                                            
+                                                        <div class="profile-box details info-box general" fxLayout="column">
+                                                            {{ tax.value | translate}}
+                                                        </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <div class="fill" fxFlex fxFlex.lt-sm="1 1 calc(50%)" fxFlex="1 1 calc(33%)" ></div>
+                                        <div class="fill" fxFlex fxFlex.lt-sm="1 1 calc(50%)" fxFlex="1 1 calc(33%)" ></div>
+                                    
+                                    </div>
+
+                                    
+
+                                    <div class="mt-48"></div>
+                                </div>
+                                <!-- <img src="assets/images/training-placeholder.png" fxFlex="40"> -->
+                                
+                                <span fxFlex></span>
+
+
+                                <!-- TAXONOMIES -->
+                                <div class="tax-tab" fxLayout="row wrap" fxLayoutAlign="center start">
+                                    
+                                    <h2 class="h2 days-one" style="text-align: center">{{ 'SINGLE_TRAINING.TAXONOMIES' | translate}}</h2>
+
+                                    <!-- CATEGORIES -->
+                                        <div class="about-content"
+                                        fxLayout="column" 
+                                        fxLayout.lt-sm="column" 
+                                        fxLayoutAlign.lt-sm="start center"  
+                                        fxFlex 
+                                        fxFlex="1 1 calc(100%)" >
+                                            <div class="content" fxLayout="column">
+                                                <div class="info-line mb-8 text-center" fxLayout="column">
+                                                    <div class="tab-tax-header" fxLayout="column">{{ 'SINGLE_TRAINING.CATEGORY' | translate}}</div>
+                                            
+                                                    <div class="profile-box details info-box general" fxLayout="column">
+                                                        <ng-container *ngFor="let catValue of getCategoriesList(); let last=last">
+                                                            {{ catValue | translate}}
+                                                            <ng-container *ngIf="!last">{{', '}}</ng-container> 
+                                                        </ng-container>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+
+
+                                    <!-- SELECT TAXONOMIES -->
+                                    <div class="about-content" 
+                                    fxLayout="column" 
+                                    fxLayout.lt-sm="column" 
+                                    fxLayoutAlign.lt-sm="start center"  
+                                    fxFlex 
+                                     fxFlex="1 1 calc(100%)" 
+                                     *ngFor="let tax of getTrainingSelectTaxonomies()"  > 
+                                        <!-- fxFlex.gt-sm="50" fxFlex.gt-md="65" -->
+
+                                        <div class="content" fxLayout="column">
+
+                                            <div class="info-line mb-8 text-center" fxLayout="column">
+         
+                                                <div class="tab-tax-header" fxLayout="column">{{ tax.name | translate}}</div>
+                                        
+                                                <div class="profile-box details info-box general" fxLayout="column">
+                                                    <ng-container *ngFor="let taxValue of tax.value; let last=last">
+                                                        {{ taxValue | translate}}
+                                                        <ng-container *ngIf="!last">{{', '}}</ng-container> 
+                                                    </ng-container>
+                                                </div>
+
+                                            </div>
+                                        
+                                        
+
+                                         </div>
+                                    </div>
+
+                                 </div>
+        
+        
+                                <span fxFlex></span>
+        
+        
+                            </div>
+        
+
+                            <span fxFlex></span>
+        
+
+                            <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-evenly" class="content-wrapper">
+        
+                                <div fxFlex="1 1 calc(50%)" fxFlex.lt-md="1 1 calc(100%)">
+                                    <div class="desc-tab" fxLayout="row" fxLayoutAlign="start start" fxFlex="100%">
+        
+                                        <div class="about-content" fxLayout="column" fxFlex> 
+                                            <!-- fxFlex.gt-sm="50" fxFlex.gt-md="65" -->
+        
+                                            <div class="tab-tax-header" fxLayout="column">{{'SINGLE_TRAINING.DESCRIPTION' | translate}}</div>
+                          
+                                            <div class="profile-box info-box general" fxLayout="column">
+                                    
+                                                <div class="content" fxLayout="column" fxFlex>
+        
+                                                    <div class="info-line mb-8" fxLayout="row" fxFlex >
+                                                        <div class="info">{{training.description}}</div>
+                                                    </div>
+                        
+                                                </div>
+                                            </div>
+                                       
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div fxFlex="0 1 calc(50%)" fxFlex.lt-md="0 1 calc(100%)">
+                                    <div class="desc-tab" fxLayout="row" fxLayoutAlign="start start" fxFlex="100%">
+        
+                                        <div class="about-content" fxLayout="column" fxFlex> 
+                                            <!-- fxFlex.gt-sm="50" fxFlex.gt-md="65" -->
+        
+                                            <div class="tab-tax-header" fxLayout="column">{{'SINGLE_TRAINING.VARIANTS' | translate}}</div>
+                          
+                                            <div class="profile-box info-box general" fxLayout="column">
+                                    
+                                                <div class="content" fxLayout="column" fxFlex>
+        
+                                                    <div class="info-line mb-8" fxLayout="row" fxFlex >
+                                                        <div class="info">{{training.variants}}</div>
+                                                    </div>
+                        
+                                                </div>
+                                            </div>
+                                       
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div fxFlex="0 1 calc(50%)" fxFlex.lt-md="0 1 calc(100%)">
+                                    <div class="desc-tab" fxLayout="row" fxLayoutAlign="start start" fxFlex="100%">
+        
+                                        <div class="about-content" fxLayout="column" fxFlex> 
+                                            <!-- fxFlex.gt-sm="50" fxFlex.gt-md="65" -->
+        
+                                            <div class="tab-tax-header" fxLayout="column">{{'SINGLE_TRAINING.OBSERVATIONS' | translate}}</div>
+                          
+                                            <div class="profile-box info-box general" fxLayout="column">
+                                    
+                                                <div class="content" fxLayout="column" fxFlex>
+        
+                                                    <div class="info-line mb-8" fxLayout="row" fxFlex >
+                                                        <div class="info">{{training.observations}}</div>
+                                                    </div>
+                        
+                                                </div>
+                                            </div>
+                                       
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div fxFlex="0 1 calc(50%)" fxFlex.lt-md="0 1 calc(100%)">
+                                    <div class="desc-tab fill" fxLayout="row" fxLayoutAlign="start start" fxFlex="100%">
+        
+                                        <div class="about-content" fxLayout="column" fxFlex> 
+                                            <!-- fxFlex.gt-sm="50" fxFlex.gt-md="65" -->
+        
+                                            <div class="tab-tax-header" fxLayout="column"></div>
+                          
+                                            <div class="profile-box info-box general" fxLayout="column">
+                                    
+                                                <div class="content" fxLayout="column" fxFlex>
+        
+                                                    <div class="info-line mb-8" fxLayout="row" fxFlex >
+                                                        <div class="info"></div>
+                                                    </div>
+                        
+                                                </div>
+                                            </div>
+                                       
+                                        </div>
+                                    </div>
+                                </div>
+        
+                                <div fxFlex="0 1 calc(50%)" fxFlex.lt-md="0 1 calc(100%)">
+                                    <!-- sixth info card -->
+                                    <div class="desc-tab" fxLayout="row" fxLayoutAlign="start start" fxFlex="40">
+            
+                                        <div class="mail-attachments" style="border-top: 0px;">
+            
+                                            <div class="title text-center" style="font-weight: 500;">
+                                                <span>{{'TRAINING_DETAIL.ATTACHMENTS' | translate}}</span>
+                                            </div>
+                                
+                                            <div class="attachment-list" fxLayout="row">
+                                
+                                                <div class="attachment" fxLayout="column" *ngFor="let f of filePaths">
+                                                    <img class="preview pointer" src="assets/images/file-manager/attachment-default.png" (click)="openfile(f)">
+                                                    <a class="pointer" (click)="openfile(f)">{{f.name}}</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+            
+                                </div>
+        
+
+                                <div class="fill" fxFlex="0 1 calc(50%)" fxFlex.lt-md="0 1 calc(100%)"></div>
+            
+                            </div>
+        
+                        </div>
+                    </mat-tab>
+        
+                    <mat-tab label="{{ 'SINGLE_TRAINING.FLOW' | translate}}">
+                        
+                        <div fxLayout="row" fxLayout.lt-sm="column">
+
+                        <div fxLayout="column" fxFlex="0 1 calc(50%)" fxFlex.lt-sm="100" fxLayout.lt-sm="column" fxLayoutAlign="space-evenly" class="content-wrapper">
+                            
+                            <div fxFlex="0 1 calc(50%)" fxFlex.lt-md="0 1 calc(100%)">
+                                <div class="desc-tab" fxLayout="row" fxLayoutAlign="start start" fxFlex="100%">
+    
+                                    <div class="about-content" fxLayout="column" fxFlex> 
+                                        <!-- fxFlex.gt-sm="50" fxFlex.gt-md="65" -->
+    
+                                        <div class="tab-tax-header" fxLayout="column">{{'INSERT_TRAINING.GOAL' | translate}}</div>
+                      
+                                        <div class="profile-box info-box general" fxLayout="column">
+                                
+                                            <div class="content" fxLayout="column" fxFlex>
+    
+                                                <div class="info-line mb-8" fxLayout="row" fxFlex >
+                                                    <div class="info">{{training.goal}}</div>
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                                   
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div fxLayout="column" fxLayoutAlign="center center">
+                                <mat-icon>arrow_downward</mat-icon>
+                            </div>
+                           
+
+                            <div fxFlex="0 1 calc(50%)" fxFlex.lt-md="0 1 calc(100%)">
+                                <div class="desc-tab" fxLayout="row" fxLayoutAlign="start start" fxFlex="100%">
+    
+                                    <div class="about-content" fxLayout="column" fxFlex> 
+                                        <!-- fxFlex.gt-sm="50" fxFlex.gt-md="65" -->
+    
+                                        <div class="tab-tax-header" fxLayout="column">{{'INSERT_TRAINING.STRATEGY' | translate}}</div>
+                      
+                                        <div class="profile-box info-box general" fxLayout="column">
+                                
+                                            <div class="content" fxLayout="column" fxFlex>
+    
+                                                <div class="info-line mb-8" fxLayout="row" fxFlex >
+                                                    <div class="info">{{training.strategy}}</div>
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                                   
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div fxLayout="column" fxLayoutAlign="center center">
+                                <mat-icon>arrow_downward</mat-icon>
+                            </div>
+
+                            <div fxFlex="0 1 calc(50%)" fxFlex.lt-md="0 1 calc(100%)">
+                                <div class="desc-tab" fxLayout="row" fxLayoutAlign="start start" fxFlex="100%">
+    
+                                    <div class="about-content" fxLayout="column" fxFlex> 
+                                        <!-- fxFlex.gt-sm="50" fxFlex.gt-md="65" -->
+    
+                                        <div class="tab-tax-header" fxLayout="column">{{'INSERT_TRAINING.DEVELOPMENT' | translate}}</div>
+                      
+                                        <div class="profile-box info-box general" fxLayout="column">
+                                
+                                            <div class="content" fxLayout="column" fxFlex>
+    
+                                                <div class="info-line mb-8" fxLayout="row" fxFlex >
+                                                    <div class="info">{{training.developements}}</div>
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                                   
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div fxLayout="column" fxLayoutAlign="center center">
+                                <mat-icon>arrow_downward</mat-icon>
+                            </div>
+                            
+                            <div fxFlex="0 1 calc(50%)" fxFlex.lt-md="0 1 calc(100%)">
+                                <div class="desc-tab" fxLayout="row" fxLayoutAlign="start start" fxFlex="100%">
+    
+                                    <div class="about-content" fxLayout="column" fxFlex> 
+                                        <!-- fxFlex.gt-sm="50" fxFlex.gt-md="65" -->
+    
+                                        <div class="tab-tax-header" fxLayout="column">{{'INSERT_TRAINING.NOTES' | translate}}</div>
+                      
+                                        <div class="profile-box info-box general" fxLayout="column">
+                                
+                                            <div class="content" fxLayout="column" fxFlex>
+    
+                                                <div class="info-line mb-8" fxLayout="row" fxFlex >
+                                                    <div class="info">{{training.notes}}</div>
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                                   
+                                    </div>
+                                </div>
+                            </div>
+                         
+                        </div>
+
+                        <div fxLayout="column" fxFlex="0 1 calc(50%)" fxFlex.lt-sm="100" fxLayout.lt-sm="column" fxLayoutAlign="start" class="content-wrapper">
+                            
+                            <div fxFlex="0 1 calc(50%)" fxFlex.lt-md="0 1 calc(100%)">
+                                <div class="desc-tab" fxLayout="row" fxLayoutAlign="start start" fxFlex="100%">
+    
+                                    <div class="about-content" fxLayout="column" fxFlex> 
+                                        <!-- fxFlex.gt-sm="50" fxFlex.gt-md="65" -->
+    
+                                        <div class="tab-tax-header" fxLayout="column">{{'INSERT_TRAINING.FOCUS' | translate}}</div>
+                      
+                                        <div class="profile-box info-box general" fxLayout="column">
+                                
+                                            <div class="content" fxLayout="column" fxFlex>
+    
+                                                <div class="info-line mb-8" fxLayout="row" fxFlex >
+                                                    <div class="info">{{training.focus}}</div>
+                                                </div>
+                    
+                                            </div>
+                                        </div>
+                                   
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        
+                        </div>
+                    </mat-tab>
+        
+                    
+                    <mat-tab label="PDF" class="pdf-tab">
+                        
+                        <div class="pdf-container text-center">
+
+                            <button mat-raised-button color="accent" class="print-button" (click)="print()">PRINT / DOWNLOAD <mat-icon>cloud_download</mat-icon></button>
+
+                            <div class="pdf-wrapper">
+
+                                <div style="text-align: right">
+                                    <img src="/assets/images/logos/TacticalpediaBluLungo.jpg" width="300">
+                                </div>
+                                
+
+                                <h1 class="pdf-training-title" style="margin-bottom: 10px">{{training.name}}</h1>
+
+                                <div class="subtitle secondary-text" style="text-align: left">
+                                    <span>{{'SINGLE_TRAINING.FROM' | translate}} </span>
+                                    <span>{{authorName}}</span>
+                                </div>
+
+                            
+                                <!-- IMAGES -->
+
+                                <div fxLayout='row' fxLayout.lt-sm="column" fxLayoutAlign="start">
+        
+                                    <span fxFlex></span>
+                                    
+                                    <div fxLayout='column'>
+                                        
+                                        <div *ngIf="pdfImageObject && pdfImageObject.length > 0" class="media-container">
+                                            <img src="{{ pdfImageObject[0].image }}" class="media">
+                                        </div> 
+        
+                                    
+    
+                                        <div class="tax-tab" fxLayout="row wrap" fxLayoutAlign="start">
+                
+                                            <div class="about-content" 
+                                            fxLayout="column" 
+                                            fxLayout.lt-sm="column" 
+                                            fxLayoutAlign.lt-sm="center center"  
+                                            fxFlex 
+                                            fxFlex.lt-sm="1 1 calc(50%)"
+                                            fxFlex="1 1 calc(33%)" 
+                                            *ngFor="let tax of trainingTaxonomies"  > 
+                                                <!-- fxFlex.gt-sm="50" fxFlex.gt-md="65" -->
+                                                <div class="content" fxLayout="column" style="width: 100%">
+                                                    <div class="info-line mb-8 text-center" fxLayout="column" >
+                                                        <div class="tab-tax-header" fxLayout="column">{{ tax.label | translate}}</div>
+                                                            <div class="profile-box details info-box general" fxLayout="column">
+                                                                {{ tax.value | translate}}
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fill" fxFlex fxFlex.lt-sm="1 1 calc(50%)" fxFlex="1 1 calc(33%)" ></div>
+                                            <div class="fill" fxFlex fxFlex.lt-sm="1 1 calc(50%)" fxFlex="1 1 calc(33%)" ></div>
+                                        </div>
+    
+                                        <div class="mt-48"></div>
+                                    </div>
+                                    <!-- <img src="assets/images/training-placeholder.png" fxFlex="40"> -->
+                                    
+                                    <span fxFlex></span>
+    
+    
+                                    <!-- TAXONOMIES -->
+                                    <div class="tax-tab" fxLayout="row wrap" fxLayoutAlign="center start" fxFlex="30%">
+                                        
+                                        <h2 class="h2 days-one" style="text-align: center">{{ 'SINGLE_TRAINING.TAXONOMIES' | translate}}</h2>
+    
+                                        <!-- CATEGORIES -->
+                                            <div class="about-content"
+                                            fxLayout="column" 
+                                            fxLayout.lt-sm="column" 
+                                            fxLayoutAlign.lt-sm="start center"  
+                                            fxFlex 
+                                            fxFlex="1 1 calc(100%)" >
+                                                <div class="content" fxLayout="column">
+                                                    <div class="info-line mb-8 text-center" fxLayout="column">
+                                                        <div class="tab-tax-header" fxLayout="column">{{ 'SINGLE_TRAINING.CATEGORY' | translate}}</div>
+                                                
+                                                        <div class="profile-box details info-box general" fxLayout="column">
+                                                            <ng-container *ngFor="let catValue of getCategoriesList(); let last=last">
+                                                                {{ catValue | translate}}
+                                                                <ng-container *ngIf="!last">{{', '}}</ng-container> 
+                                                            </ng-container>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                       
+    
+    
+                                        <!-- SELECT TAXONOMIES -->
+                                        <div class="about-content" 
+                                        fxLayout="column" 
+                                        fxLayout.lt-sm="column" 
+                                        fxLayoutAlign.lt-sm="start center"  
+                                        fxFlex 
+                                         fxFlex="1 1 calc(100%)" 
+                                         *ngFor="let tax of getTrainingSelectTaxonomies()"  > 
+                                            <!-- fxFlex.gt-sm="50" fxFlex.gt-md="65" -->
+    
+                                            <div class="content" fxLayout="column">
+    
+                                                <div class="info-line mb-8 text-center" fxLayout="column">
+             
+                                                    <div class="tab-tax-header" fxLayout="column">{{ tax.name | translate}}</div>
+                                            
+                                                    <div class="profile-box details info-box general" fxLayout="column">
+                                                        <ng-container *ngFor="let taxValue of tax.value; let last=last">
+                                                            {{ taxValue | translate}}
+                                                            <ng-container *ngIf="!last">{{', '}}</ng-container> 
+                                                        </ng-container>
+                                                    </div>
+    
+                                                </div>
+                                            
+                                            
+    
+                                             </div>
+                                        </div>
+    
+                                     </div>
+            
+            
+                                    <span fxFlex></span>
+            
+            
+                                </div>
+            
+
+
+                                <!-- DETAILS -->
+
+                                <h2 class="mt-36">{{'SINGLE_TRAINING.DETAILS' | translate}}</h2>
+
+                                <div class="pdf-grid">
+
+                                <div class="tax-container border left pdf-margin pdf-grid-item">
+                                    <h4 class="pdf-tax-title">{{'SINGLE_TRAINING.DESCRIPTION' | translate}}</h4>
+                                    <div>{{ training.description }}</div>
+                                </div>
+
+                                <div class="tax-container border left pdf-margin pdf-grid-item">
+                                    <h4 class="pdf-tax-title">{{'SINGLE_TRAINING.VARIANTS' | translate}}</h4>
+                                    <div>{{ training.variants }}</div>
+                                </div>
+
+                                <div class="tax-container border left pdf-margin pdf-grid-item">
+                                    <h4 class="pdf-tax-title">{{'SINGLE_TRAINING.OBSERVATIONS' | translate}}</h4>
+                                    <div>{{ training.observations }}</div>
+                                </div>
+
+                                </div>
+
+                                
+
+                                <!-- FLOW -->
+                                <div class="pagebreak">
+
+                                    <h2 class="text-center">{{'SINGLE_TRAINING.FLOW' | translate}}</h2>
+
+                                    <div style="width: 100%;" class="mt-48 flow-grid" style="padding-bottom: 100px">
+
+                                        <div class="flow-column">
+
+                                            <!-- GOAL -->
+                                            <div class="flow-container border">
+                                                <h4 class="pdf-tax-title">{{'INSERT_TRAINING.GOAL' | translate}}</h4>
+                                                <div>{{ training.goal }}</div>
+                                            </div>
+                
+                                            <!-- STRATEGY -->
+                                            <div class="text-center">
+                                                <mat-icon>arrow_downward</mat-icon>
+                                            </div>
+
+                                            <div class="flow-container border">
+                                                <h4 class="pdf-tax-title">{{'INSERT_TRAINING.STRATEGY' | translate}}</h4>
+                                                <div>{{ training.strategy }}</div>
+                                            </div>
+
+                                            <!-- DEVELOPMENT -->
+                                            <div class="text-center">
+                                                <mat-icon>arrow_downward</mat-icon>
+                                            </div>
+
+                                            <div class="flow-container border">
+                                                <h4 class="pdf-tax-title">{{'INSERT_TRAINING.DEVELOPMENT' | translate}}</h4>
+                                                <div>{{ training.developements }}</div>
+                                            </div>
+
+                                            
+                                            <!-- NOTES -->
+                                            <div class="text-center">
+                                                <mat-icon>arrow_downward</mat-icon>
+                                            </div>
+
+                                            <div class="flow-container border">
+                                                <h4 class="pdf-tax-title">{{'INSERT_TRAINING.NOTES' | translate}}</h4>
+                                                <div>{{ training.notes }}</div>
+                                            </div>
+                                        </div>
+
+                                        
+                                        <div class="flow-column">
+                                            <div class="flow-container border">
+                                                <h4 class="pdf-tax-title">{{'INSERT_TRAINING.FOCUS' | translate}}</h4>
+                                                <div>{{ training.focus }}</div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                                <div *ngIf="pdfImageObject && pdfImageObject.length > 1" class="pagebreak">
+                                    <h2>Altre immagini</h2>
+
+                                    <div class="pdf-grid">
+                                        <div *ngFor="let image of pdfImageObject.slice(1); let i = index" class="pdf-image-other">
+                                            <img src="{{ image.image }}">
+                                        </div>
+                                    </div>
+                                   
+
+                                </div>
+                                
+
+                            </div>
+
+                        </div>
+
+                            
+                    </mat-tab>
+        
+                </mat-tab-group>
+
+                
+                
+                                
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+</div>
+

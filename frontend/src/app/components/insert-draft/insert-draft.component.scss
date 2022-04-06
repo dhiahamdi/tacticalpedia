@@ -1,0 +1,77 @@
+@import "src/@fuse/scss/fuse";
+
+#insert-draft{
+    width: 100%;
+    background-size: cover;
+
+    #insert-draft-form-wrapper {
+        flex: 1 0 auto;
+        padding: 32px;
+
+        @include media-breakpoint('xs') {
+            padding: 16px;
+        }
+
+        .title {
+            font-size: 20px;
+            margin: 16px 0 32px 0;
+        }
+
+        .error {
+            margin: 32px auto 24px auto;
+            font-weight: 600;
+
+            .text {
+                margin-right: 8px;
+            }
+        }
+
+        #insert-draft-form {
+            width: 80%;
+            max-width: 80%;
+            padding: 32px;
+            text-align: center;
+            @include mat-elevation(16);
+
+            @include media-breakpoint('xs') {
+                padding: 24px;
+                width: 100%;
+            }
+        }
+
+        .training-pic{
+            margin: auto !important;
+            width: 80px;
+            min-width: 40px;
+            height: 80px;
+            line-height: 40px;
+            margin: 0 8px 0 0;
+            font-size: 17px;
+            font-weight: 600;
+            text-align: center;
+            
+        }
+    }
+}
+
+
+#upload-photo {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+ }
+
+h3{
+    color: rgba(0, 0, 0, 0.6);
+}
+
+
+@media (max-width: 600px) {
+    #insert-draft-form {
+        max-width: 100% !important;
+    }
+
+    #insert-draft {
+        padding: 0px !important;
+    }
+}

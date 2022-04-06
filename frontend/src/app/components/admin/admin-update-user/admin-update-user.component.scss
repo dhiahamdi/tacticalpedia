@@ -1,0 +1,114 @@
+@import "src/@fuse/scss/fuse";
+
+#update{
+    width: 100%;
+    background: url('/assets/images/backgrounds/dark-material-bg.jpg') no-repeat;
+    background-size: cover;
+
+    #update-form-wrapper {
+        flex: 1 0 auto;
+        padding: 32px;
+
+        @include media-breakpoint('xs') {
+            padding: 16px;
+        }
+
+        #update-form {
+            width: 50%;
+            max-width: 100%;
+            padding: 32px;
+            text-align: center;
+            @include mat-elevation(16);
+
+            @include media-breakpoint('xs') {
+                padding: 24px;
+                width: 100%;
+            }
+
+            .profile-pic{
+                margin: auto !important;
+                width: 80px;
+                min-width: 40px;
+                height: 80px;
+                line-height: 40px;
+                margin: 0 8px 0 0;
+                border-radius: 50%;
+                font-size: 17px;
+                font-weight: 600;
+                text-align: center;
+                
+            }
+
+            .title {
+                font-size: 20px;
+                margin: 16px 0 32px 0;
+            }
+
+            .logo {
+                width: 128px;
+                margin: 32px auto;
+            }
+
+            .home {
+                margin: 32px auto 24px auto;
+                width: 250px;
+                font-weight: 600;
+
+                .text {
+                    margin-right: 8px;
+                }
+            }
+
+        }
+
+    }
+
+}
+
+label.pic-button{
+    cursor: pointer;
+    color: #039be5;
+    margin-bottom: 10px;
+    /* Style as you please, it will become the visible UI component. */
+ }
+
+label.pic:hover{
+     opacity: .5;
+}
+ 
+ #upload-photo {
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+ }
+
+
+
+:host {
+
+    .content {
+
+        form {
+            width: 100%;
+            max-width: 800px !important;
+        }
+
+        .form-errors-model {
+            flex: 1;
+
+            code {
+                background: none !important;
+            }
+        }
+
+        .horizontal-stepper-wrapper,
+        .vertical-stepper-wrapper {
+            max-width: 800px;
+        }
+    }
+}
+
+
+.subscription-status {
+    margin: 20px auto;
+}

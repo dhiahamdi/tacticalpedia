@@ -1,0 +1,57 @@
+.fuse-card {
+    display: grid;
+    min-width: 49vw;
+    max-height: 1vw;
+    min-height: 40vw;
+    border-radius: 5px;
+    border: 5px solid;
+    padding: 1vw;
+    margin-left: 1vw;
+    margin-right: -6px;
+    background: gainsboro;
+
+  }
+  .cards{
+      display: flex;
+      background-image: url('/assets/images/cards/football.jpg');
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      .p-16{
+        margin-bottom: -5vw;
+        margin-top: -2vw;
+      }
+  
+  }
+.mainimg {
+    width: 100%;
+    height: 50%;
+    vertical-align: top;
+    border: none;
+}
+.det{
+    border: outset;
+    background-color: #95a7d7;
+    font-weight: bold;
+    :hover {transform: scale(1,2);}
+  }
+  .authorsimg{
+    clip-path: circle();
+    margin-left: 40vw;
+    position: absolute;
+    margin-top: 16vw;
+}
+.authorsimg1{
+    clip-path: circle();
+    margin-left: 40vw;
+    position: absolute;
+    margin-top: 16vw;
+    margin-left: 37vw;
+}
+.authorsimg2{
+    clip-path: circle();
+    margin-left: 40vw;
+    position: absolute;
+    margin-left: 33vw;
+    margin-top: 16vw;
+}

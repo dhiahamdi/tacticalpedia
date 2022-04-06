@@ -1,0 +1,108 @@
+<div class="page-layout simple fullwidth">
+
+    <!-- HEADER -->
+    <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+        <h2>Full width</h2>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content p-24">
+
+        <h2>Custom categories</h2>
+        <p>Here you can change the categories of your proposals, they are usually categories like "Under 18"...</p>
+
+        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+
+            <mat-label>Categories</mat-label>
+
+            <mat-chip-list #categoryList name="categories" >
+
+                <mat-chip *ngFor="let category of categories"
+                          [removable]="true" (removed)="this.removeCategory(category.slug)">
+                    {{category.label}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+
+                <input [matChipInputFor]="categoryList"
+                       
+                       (matChipInputTokenEnd)="this.addCategory($event)"/>
+
+            </mat-chip-list>
+
+        </mat-form-field>
+
+
+        <mat-divider class="mt-32 mb-32"></mat-divider>
+
+
+
+        <h2>Custom text fields</h2>
+        <p>Here you can add specific values in your proposals , for instance the number of players, time needed...</p>
+
+
+        <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+
+            <mat-label>Tassonomie</mat-label>
+
+            <mat-chip-list #taxonomyList name="taxonomies" >
+
+                <mat-chip *ngFor="let taxonomy of taxonomies"
+                          [removable]="true" (removed)="this.removeTaxonomy(taxonomy.slug)">
+                    {{taxonomy.label}}
+                    <mat-icon matChipRemove>cancel</mat-icon>
+                </mat-chip>
+
+                <input [matChipInputFor]="taxonomyList"
+                       
+                       (matChipInputTokenEnd)="this.addTaxonomy($event)"/>
+
+            </mat-chip-list>
+
+        </mat-form-field>
+
+
+        <mat-divider class="mt-32 mb-32"></mat-divider>
+        
+
+        <h2>Custom select taxonomies</h2>
+        <p>Here you can change the categories of your proposals, and you will be able to filter them later using these taxonomies</p>
+
+        <div *ngFor="let select of selectTaxonomies">
+
+            <mat-form-field>
+                <input matInput [value]="select.name" (change)="this.updateSelectTaxonomyName(select, $event.target.value)">
+            </mat-form-field>
+            
+            <button mat-raised-button class="ml-12" color="warn" (click)="this.removeSelectTaxonomy(select)">
+                <mat-icon>clear</mat-icon>
+            </button>
+
+            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+
+                <mat-chip-list #selectTaxonomies name="selectTaxonomiesOptions" >
+
+                    <mat-chip *ngFor="let option of select.options"
+                              [removable]="true" (removed)="this.removeSelectTaxonomyOption(select, option)">
+                        {{option}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
+    
+                    <input [matChipInputFor]="selectTaxonomies" 
+                        
+                        (matChipInputTokenEnd)="this.addSelectTaxonomyOption(select, $event)"/>
+    
+                </mat-chip-list>
+
+            </mat-form-field>
+        </div>
+
+        <button mat-raised-button color="accent" (click)="this.addNewSelectTaxonomy()">
+            Add new category
+        </button>
+        
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

@@ -1,0 +1,21 @@
+<h1 matDialogTitle>{{ 'SHARED.CONFIRM' | translate }}</h1>
+
+<div mat-dialog-content>{{ 'ADMIN.DELETE_USER_WANING_MESSAGE' | translate}}</div>
+
+<form name="seletNewUser" [formGroup]="form" novalidate>
+    <mat-form-field>
+        <mat-label>{{'ADMIN.SELECT_USER' | translate}}</mat-label>
+        <mat-select formControlName="newUser">
+            <mat-option value="DONT_ASSIGN">NO USER</mat-option>
+            <mat-option *ngFor="let user of data.users" [value]="user._id">
+                {{ user.profile.name + ' ' + user.profile.surname + ' (' + user.username + ')'}}
+            </mat-option>
+        </mat-select>
+        <mat-error>{{'SHARED.NO_DISCIPLINE' | translate}}</mat-error>
+    </mat-form-field>
+</form>
+
+<div mat-dialog-actions class="pt-24">
+    <button mat-raised-button class="mat-warn mr-16" (click)="dialogRef.close(this.form.get('newUser').value)">{{ 'SHARED.DELETE' | translate }}</button>
+    <button mat-button (click)="dialogRef.close(false)">{{ 'SHARED.CANCEL' | translate }}</button>
+</div>

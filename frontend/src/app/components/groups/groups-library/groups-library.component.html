@@ -1,0 +1,70 @@
+<div class="page-layout simple fullwidth">
+
+    <!-- CONTENT -->
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+            fxLayoutAlign.gt-xs="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                <span class="logo-text h1" >Explore Groups</span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <!-- <div class="search-wrapper mt-40" fxFlex="50"  fxFlex.lt-md="80" fxLayout="row" fxLayoutAlign="start center">
+
+            <div class="search" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text">search</mat-icon>
+                <input  [(ngModel)]="searchInput" (ngModelChange)="setCurrentSearchInput()" [placeholder]="'HOME.SEARCH' | translate" fxFlex>
+            </div>
+
+        </div> -->
+
+            <div class="search-wrapper  ml-sm-32">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon style="color: #545454 !important">search</mat-icon>
+                    <input 
+                        [placeholder]="'HOME.SEARCH' | translate">
+                </div>
+            </div>
+            <!-- / SEARCH -->
+
+        </div>
+
+
+
+
+
+
+
+
+        <!-- CONTENT CARD -->
+        <div class="content-card mt-40">
+
+            <div class="content">
+
+                <div class="training-grid" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-evenly"
+                    fxLayoutAlign.lt-sm="start">
+
+                    <app-group-card class="mb-24" *ngFor="let group of groups" [group]="group" fxFlex="0 1 calc(25%)"
+                        fxFlex.lt-md="0 1 calc(50%)" fxFlex.lt-sm="100%">
+                    </app-group-card>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+        <!-- / CONTENT HEADER -->
+
+
+    </div>
+
+</div>
+

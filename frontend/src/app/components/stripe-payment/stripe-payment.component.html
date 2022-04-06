@@ -1,0 +1,16 @@
+<!-- CONTENT -->
+<ngx-stripe-card
+[options]="cardOptions"
+[elementsOptions]="elementsOptions"
+></ngx-stripe-card>
+
+
+<div style="text-align:center">
+    <button id="pay-stripe-button" mat-raised-button color="accent" [class.spinner]="loading" [disabled]="loading" (click)="createPaymentMethod()">
+        {{'STRIPE.PAY' |translate}}
+            </button>
+</div>
+<!-- / CONTENT -->
+
+
+

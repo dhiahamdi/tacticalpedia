@@ -1,0 +1,86 @@
+<!-- <div class="page-layout simple fullwidth"> -->
+<!-- <div class="page-layout simple fullwidth"> -->
+
+    <!-- HEADER -->
+    <!-- <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+        <h2>Full width</h2>
+    </div> -->
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div id="mail" class="page-layout carded left-sidebar inner-scroll">
+
+        <!-- TOP BACKGROUND -->
+        <div class="top-bg header accent"></div>
+        <!-- / TOP BACKGROUND -->
+    
+        <!-- SIDEBAR -->
+        <fuse-sidebar class="sidebar filter-sidebar" name="app-main-sidebar" position="left" lockedOpen="gt-md">
+            <app-main-sidebar></app-main-sidebar>
+        </fuse-sidebar>
+        <!-- / SIDEBAR -->
+    
+        <!-- CENTER -->
+        <div class="center">
+    
+            <!-- CONTENT HEADER -->
+            <div class="header" fxLayout="row" fxLayoutAlign="start center">
+    
+                <div class="search-wrapper" fxFlex fxLayout="row" fxLayoutAlign="start center">
+    
+                    <button mat-icon-button class="sidebar-toggle" fxHide.gt-md (click)="toggleSidebar('app-main-sidebar')">
+                        <mat-icon>menu</mat-icon>
+                    </button>
+    
+                    <div class="search" fxLayout="row" fxLayoutAlign="start center">
+                        <mat-icon class="secondary-text">search</mat-icon>
+                        <input  [formControl]="searchInput" [placeholder]="'TRAINING_LIBRARY.SEARCH_PLACEHOLDER' | translate" fxFlex>
+                    </div>
+    
+                </div>
+    
+            </div>
+            <!-- / CONTENT HEADER -->
+    
+            <!-- CONTENT CARD -->
+            <div class="content-card" [ngClass]="{'current-mail-selected':currentTraining}">
+    
+                <!-- CONTENT TOOLBAR -->
+                <div class="toolbar px-24 py-8">
+    
+                    <div class="mail-selection" fxFlex="row" fxLayoutAlign="start center">
+                        <mat-checkbox (click)="toggleSelectAll()" [checked]="hasSelectedMails"></mat-checkbox>
+    
+                        <div class="toolbar-separator"></div>
+    
+                        <button mat-icon-button (click)=deleteTrainings()>
+                            <mat-icon class="secondary-text">delete</mat-icon>
+                        </button>
+    
+                    </div>
+    
+                    <div *ngIf="currentTraining" fxHide.gt-xs>
+                        <button mat-icon-button (click)="deselectCurrentTraining()">
+                            <mat-icon class="secondary-text">arrow_back</mat-icon>
+                        </button>
+                    </div>
+                </div>
+                <!-- / CONTENT TOOLBAR -->
+
+                <div class="content" fxLayout="row">
+    
+                    <training-list fusePerfectScrollbar fxFlex></training-list>
+                    <training-detail fusePerfectScrollbar fxFlex></training-detail>
+    
+                </div>
+    
+            </div>
+            <!-- / CONTENT CARD -->
+    
+        </div>
+        <!-- / CENTER -->
+    
+    <!-- </div> -->
+    
+
+</div>

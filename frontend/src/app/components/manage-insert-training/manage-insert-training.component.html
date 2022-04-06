@@ -1,0 +1,46 @@
+<div class="page-layout simple fullwidth" *ngIf="drafts.length !== 0">
+
+    <!-- HEADER -->
+    <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+        <h2>{{'MANAGE_INSERT.INSERT_NEW' | translate}}</h2>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div fxLayout="column" fxLayoutAlign="center stretch">
+
+        <div fxLayout="row" fxLayoutAlign="center center"> <p></p> </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <button mat-raised-button type="button" color="accent" (click)="insertNewTraining()">
+                {{'MANAGE_INSERT.INSERT_NEW' | translate}}
+            </button>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" class="mt-32"> <p>{{'MANAGE_INSERT.START_FROM_DRAFT' | translate}}</p> </div>
+
+        <div fxLayout="column" fxLayoutAlign="center center">
+
+            <div fxLayout="column" fxLayoutAlign="center" class="draft-container mat-card mat-elevation">
+            
+                <training-item [@animate]="{value:'*',params:{y:'100%'}}"
+                                *ngFor="let draft of drafts"
+                                [training]="draft"
+                                (click)=completeDraft(draft)
+                                fxFlex=100
+                                >
+                </training-item>
+            </div>
+        </div>
+
+        <div fxLayout="column">
+
+        </div>
+
+        
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

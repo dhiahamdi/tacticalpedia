@@ -1,0 +1,27 @@
+@import 'src/@fuse/scss/fuse';
+
+fuse-navigation {
+    display: flex;
+    flex: 1 0 auto;
+
+    > .nav {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+    }
+
+    .footer-info {
+        width: 100%;
+        position: fixed;
+        bottom: 0;
+        padding: 10px;
+        font-size: 8px;
+        text-align: center;
+        color: rgb(167, 167, 167);
+        background: #2d333e;
+    }
+}
+
+fuse-sidebar.folded:not(.unfolded) .footer-info {
+    display: none !important;
+}

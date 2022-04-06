@@ -1,0 +1,9 @@
+.draft-container {
+    width: 50%;
+}
+
+@media (max-width: 768px) {
+    .draft-container {
+        width: 100%;
+    }
+}

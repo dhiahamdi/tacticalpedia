@@ -1,0 +1,51 @@
+@mixin update-profile-theme($theme) {
+
+    $background: map-get($theme, background);
+    $foreground: map-get($theme, foreground);
+    $is-dark: map-get($theme, is-dark);
+
+    
+
+    #update {
+
+        #update-form-wrapper {
+
+            #update-form {
+                @if ($is-dark) {
+                    background: mat-color($fuse-navy, 600);
+                } @else {
+                    background: map-get($background, card);
+                }
+
+                .separator {
+                    color: map-get($foreground, divider);
+
+                    .text {
+
+                        &:before,
+                        &:after {
+                            border-top-color: map-get($foreground, divider);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}
+
+@media (max-width: 960px) {
+    #update-form {
+        width: 80% !important;
+    }
+}
+
+@media (max-width: 600px) {
+    #update-form {
+        width: 100% !important;
+    }
+
+    #update {
+        padding: 0px !important;
+    }
+}

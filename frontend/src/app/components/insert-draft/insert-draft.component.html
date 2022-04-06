@@ -1,0 +1,96 @@
+<div class="page-layout simple fullwidth">
+
+    <!-- HEADER -->
+    <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+        <h2>{{ 'INSERT_DRAFT.TITLE' | translate }}</h2>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div id='insert-draft' class="content p-24">
+
+        <div id="insert-draft-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+            <div id="insert-draft-form" fxLayout="column" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+                
+                <div class="title">{{ 'INSERT_DRAFT.TITLE' | translate }}</div>
+
+                <form class="mat-card mat-elevation-z4 p-24" fxLayout="column" fxLayoutAlign="start"
+                    fxFlex="1 0 auto" name="form" [formGroup]="form" (ngSubmit)="insertDraft()">
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+                        <mat-form-field appearance="outline" fxFlex="100" class="pr-4">
+                            <mat-label>{{'INSERT_DRAFT.NAME' | translate}}</mat-label>
+                            <input matInput formControlName="name">
+                        </mat-form-field>
+    
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+
+                        <mat-form-field appearance="outline" fxFlex="100" class="pr-4">
+                            <mat-label>{{'INSERT_DRAFT.DESCRIPTION' | translate}}</mat-label>
+                            <textarea matInput  rows="5" formControlName="description"></textarea>
+                        </mat-form-field>
+    
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start center" fxFlex="1 0 auto">
+     
+                        <mat-form-field appearance="outline" fxFlex="100" class="pr-4">
+                            <mat-label>{{'INSERT_DRAFT.CATEGORY' | translate}}</mat-label>
+                            <mat-select formControlName="category"  multiple>
+                                
+                                <mat-option *ngFor="let cat of categories" [value]="cat.slug">
+                                    {{cat.label | translate}}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error>{{'INSERT_DRAFT.NO_CATEGORY' | translate}}</mat-error>
+                        </mat-form-field>
+    
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start">
+                        <h3 class="ml-4">{{'INSERT_TRAINING.IMAGE_VIDEO' | translate}}</h3>
+                    </div>
+
+                    <div class="custom-dropzone mb-24" ngx-dropzone [id]="1" [accept]="'image/*, video/*'" (change)="onSelectImg($event)">
+                        <ngx-dropzone-label>
+                            <div>
+                                <h2>{{'INSERT_TRAINING.DRAG_AND_DROP' | translate}}</h2>
+                                <p>{{'INSERT_TRAINING.OR' | translate}}</p>
+                                <p>{{'INSERT_TRAINING.CLICK_TO_BROWSE' | translate}}</p>
+                            </div>
+                        </ngx-dropzone-label>
+                        <ngx-dropzone-custom-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of imgFiles" [file]="f" [removable]="true" (removed)="onRemoveImg(f)">
+                            <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                        </ngx-dropzone-custom-preview>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="center center" fxFlex="1 0 auto">
+
+                        <button mat-raised-button color="accent" class="submit-button" aria-label="LOG IN"
+                        [disabled]="form.invalid">
+                        {{'INSERT_DRAFT.CREATE' | translate}}
+                        </button>
+    
+                    </div>
+                
+                </form>
+
+                <div class="error" fxLayout="column" fxLayoutAlign="center center">
+                    <mat-error *ngIf="errorMessage">
+                        {{ errorMessage | translate }}
+                    </mat-error>
+                </div>
+            
+            
+            </div>
+        
+        </div>
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>

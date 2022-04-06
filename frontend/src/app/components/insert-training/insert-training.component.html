@@ -1,0 +1,321 @@
+<div class="page-layout simple fullwidth">
+
+    <!-- HEADER -->
+    <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+        <h2>{{ 'INSERT_TRAINING.TITLE' | translate }}</h2>
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div id='insert-training' class="content p-24" *ngIf="dataIsLoaded">
+
+        <div id="insert-training-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+            <div id="insert-training-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}">
+                
+    
+                <div class="title">{{ 'INSERT_TRAINING.TITLE' | translate }}</div>
+    
+                <mat-horizontal-stepper class="mat-elevation-z4" [linear]="false" #stepper>
+    
+                    <mat-step [stepControl]="horizontalStepperStep1">
+    
+                        <form fxLayout="column" [formGroup]="horizontalStepperStep1">
+    
+                            <ng-template matStepLabel>{{'INSERT_TRAINING.DESIGN' | translate}}</ng-template>
+
+                            <mat-form-field appearance="outline" fxFlex="100">
+                                <mat-label>{{'INSERT_TRAINING.GOAL' | translate}}</mat-label>
+                                <textarea matInput  rows="5" formControlName="goal"></textarea>
+                            </mat-form-field>
+
+                            <div class="text-center">
+                                <mat-icon>arrow_downward</mat-icon>
+                            </div>
+
+                            <mat-form-field appearance="outline" fxFlex="100">
+                                <mat-label>{{'INSERT_TRAINING.STRATEGY' | translate}}</mat-label>
+                                <textarea matInput  rows="5" formControlName="strategy"></textarea>
+                            </mat-form-field>
+
+                            <div class="text-center">
+                                <mat-icon>arrow_downward</mat-icon>
+                            </div>
+
+                            <mat-form-field appearance="outline" fxFlex="100">
+                                <mat-label>{{'INSERT_TRAINING.FOCUS' | translate}}</mat-label>
+                                <textarea matInput  rows="5" formControlName="focus"></textarea>
+
+                            </mat-form-field>
+
+                            
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <button mat-raised-button matStepperNext type="button" color="accent">
+                                    {{'SHARED.NEXT' | translate}}
+                                </button>
+                            </div>
+                            
+    
+                        </form>
+    
+                    </mat-step>
+    
+                    <mat-step [stepControl]="horizontalStepperStep2">
+    
+                        <form fxLayout="column" [formGroup]="horizontalStepperStep2">
+    
+                            <ng-template matStepLabel>{{'INSERT_TRAINING.PLANNING' | translate}}</ng-template>
+
+                            <div fxLayout="row" fxLayoutAlign="start">
+                                <h3 class="ml-4">{{'INSERT_TRAINING.IMAGE_VIDEO' | translate}}</h3>
+                            </div>
+
+                            <div class="custom-dropzone mb-24" ngx-dropzone [id]="1" [accept]="'image/*, video/*'" (change)="onSelectImg($event)" [maxFileSize]="50000000">
+                                <ngx-dropzone-label>
+                                    <div>
+                                        <h2>{{'INSERT_TRAINING.DRAG_AND_DROP' | translate}}</h2>
+                                        <p>{{'INSERT_TRAINING.OR' | translate}}</p>
+                                        <p>{{'INSERT_TRAINING.CLICK_TO_BROWSE' | translate}}</p>
+                                    </div>
+                                </ngx-dropzone-label>
+                                <ngx-dropzone-custom-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of imgFiles" [file]="f" [removable]="true" (removed)="onRemoveImg(f)">
+                                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                </ngx-dropzone-custom-preview>
+                            </div>
+
+
+                            <mat-form-field appearance="outline" fxFlex="100">
+                                <mat-label>{{'INSERT_TRAINING.DESCRIPTION' | translate}}</mat-label>
+                                <textarea matInput  rows="5" formControlName="description"></textarea>
+
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" fxFlex="100">
+                                <mat-label>{{'INSERT_TRAINING.VARIANTS' | translate}}</mat-label>
+                                <textarea matInput  rows="5" formControlName="variants"></textarea>
+
+                            </mat-form-field>
+
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                                    {{'SHARED.BACK' | translate}}
+                                </button>
+                                <button mat-raised-button matStepperNext type="button" color="accent">
+                                    {{'SHARED.NEXT' | translate}}
+                                </button>
+                            </div>
+                            
+    
+                        </form>
+    
+                    </mat-step>
+
+
+                    <mat-step [stepControl]="horizontalStepperStep3">
+    
+                        <form fxLayout="column" [formGroup]="horizontalStepperStep3">
+    
+                            <ng-template matStepLabel>{{'INSERT_TRAINING.DEFINITION' | translate}}</ng-template>
+
+                            <mat-form-field appearance="outline" fxFlex="100">
+                                <mat-label>{{'INSERT_TRAINING.NAME' | translate}}</mat-label>
+                                <input matInput  formControlName="name">
+                            </mat-form-field>
+
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                            
+                                <mat-form-field appearance="outline" fxFlex="100" *ngIf="selectedVisibility === 'private'">
+                                    
+                                    <mat-label>{{'INSERT_TRAINING.CATEGORY' | translate}}</mat-label>
+                                    <mat-select formControlName="category" multiple>
+                                        
+                                        <mat-option *ngFor="let cat of categories" [value]="cat.slug">
+                                            {{cat.label | translate}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" fxFlex="100" *ngIf="selectedVisibility === 'public'">
+                                    
+                                    <mat-label>{{'INSERT_TRAINING.CATEGORY' | translate}}</mat-label>
+                                    <mat-select formControlName="category" multiple>
+                                        
+                                        <mat-option *ngFor="let cat of defaultCategories" [value]="cat.slug">
+                                            {{cat.label | translate}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                            </div>
+
+                            <div fxLayout="row" fxLayoutAlign="start" *ngIf="defaultSelectTaxonomies.length">
+                                <h3 class="ml-4">{{'INSERT_TRAINING.DEFAULT_TAX' | translate}}</h3>
+                            </div>
+
+                            <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start" fxLayoutGap="10px" *ngIf="defaultSelectTaxonomies.length">
+                            
+                                <mat-form-field appearance="outline" fxFlex="30" *ngFor="let selectT of defaultSelectTaxonomies">
+                                    
+                                    <mat-label>{{selectT.name  | translate}}</mat-label>
+                                    <mat-select formControlName="{{selectT.name}}" multiple>
+                                        
+                                        <mat-option *ngFor="let o of selectT.options" [value]="o">
+                                            {{o | translate}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                            </div>
+
+                            <div fxLayout="row" fxLayoutAlign="start" *ngIf="selectTaxonomies.length">
+                                <h3 class="ml-4">{{'INSERT_TRAINING.CUSTOM_TAX' | translate}}</h3>
+                            </div>
+
+                            <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start" fxLayoutGap="10px" *ngIf="selectTaxonomies.length">
+                            
+                                <mat-form-field appearance="outline" fxFlex="30" *ngFor="let selectT of selectTaxonomies">
+                                    
+                                    <mat-label>{{selectT.name}}</mat-label>
+                                    <mat-select formControlName="{{selectT.name}}" multiple>
+                                        
+                                        <mat-option *ngFor="let o of selectT.options" [value]="o">
+                                            {{o}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                            </div>
+
+                            <div fxLayout="row" fxLayoutAlign="start" *ngIf="defaultTaxonomies.length">
+                                <h3 class="ml-4">{{'INSERT_TRAINING.DEFAULT_OPT' | translate}}</h3>
+                            </div>
+
+                            <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start" fxLayoutGap="10px" *ngIf="defaultTaxonomies.length">
+                                
+                                <mat-form-field appearance="outline" fxFlex="30" *ngFor="let tax of defaultTaxonomies">
+                                    <mat-label>{{tax.label | translate}}</mat-label>
+                                    <input matInput formControlName="{{tax.slug}}">
+                                </mat-form-field>
+                            
+                            </div>
+
+                            <div fxLayout="row" fxLayoutAlign="start" *ngIf="customTaxonomies.length">
+                                <h3 class="ml-4">{{'INSERT_TRAINING.CUSTOM_OPT' | translate}}</h3>
+                            </div>
+
+                            <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start" fxLayoutGap="10px" *ngIf="customTaxonomies.length">
+                                <mat-form-field appearance="outline" fxFlex="30" *ngFor="let tax of customTaxonomies">
+                                    <mat-label>{{tax.label}}</mat-label>
+                                    <input matInput  formControlName="{{tax.slug}}">
+                                </mat-form-field>
+                                
+                            </div>
+
+
+                            <div fxLayout="row" fxLayoutAlign="space-between center" class="mt-24">
+                            
+                                <mat-form-field appearance="outline" fxFlex="45">
+                                    
+                                    <mat-label>{{'INSERT_TRAINING.VISIBILITY' | translate}}</mat-label>
+                                    <mat-select formControlName="visibility">     
+                                        <mat-option *ngIf="canPublish" [value]="'public'">
+                                            {{'INSERT_TRAINING.PUBLIC' | translate}}
+                                        </mat-option>
+                                        <mat-option *ngIf="isSubscribed" [value]="'private'">
+                                            {{'INSERT_TRAINING.PRIVATE' | translate}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                            </div>
+
+                            <mat-form-field appearance="outline" fxFlex="100">
+                                <mat-label>{{'INSERT_TRAINING.OBSERVATIONS' | translate}}</mat-label>
+                                <textarea matInput  rows="5" formControlName="observations"></textarea>
+
+                            </mat-form-field>
+
+
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                                    {{'SHARED.BACK' | translate}}
+                                </button>
+                                <button mat-raised-button matStepperNext type="button" color="accent">
+                                    {{'SHARED.NEXT' | translate}}
+                                </button>
+                            </div>
+    
+                        </form>
+    
+                    </mat-step>
+
+
+
+                    <mat-step [stepControl]="horizontalStepperStep4">
+    
+                        <form fxLayout="column" [formGroup]="horizontalStepperStep4">
+    
+                            <ng-template matStepLabel>{{'INSERT_TRAINING.DEVELOPMENT' | translate}}</ng-template>
+
+                            <mat-form-field appearance="outline" fxFlex="100">
+                                <mat-label>{{'INSERT_TRAINING.DEVELOPEMENTS' | translate}}</mat-label>
+                                <textarea matInput  rows="5" formControlName="developements"></textarea>
+
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" fxFlex="100">
+                                <mat-label>{{'INSERT_TRAINING.NOTES' | translate}}</mat-label>
+                                <textarea matInput  rows="5" formControlName="notes"></textarea>
+
+                            </mat-form-field>
+
+                            <div fxLayout="row" fxLayoutAlign="start">
+                                <h3 class="ml-4">{{'INSERT_TRAINING.FILES' | translate}}</h3>
+                            </div>
+
+                            <div class="custom-dropzone mb-24" ngx-dropzone  [id]="2" (change)="onSelect($event)" [maxFileSize]="50000000">
+                                <ngx-dropzone-label>
+                                    <div>
+                                        <h2>{{'INSERT_TRAINING.DRAG_AND_DROP' | translate}}</h2>
+                                        <p>{{'INSERT_TRAINING.OR' | translate}}</p>
+                                        <p>{{'INSERT_TRAINING.CLICK_TO_BROWSE' | translate}}</p>
+                                    </div>
+                                </ngx-dropzone-label>
+                                <ngx-dropzone-preview ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+                                    <ngx-dropzone-label>{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+                                </ngx-dropzone-preview>
+                            </div>
+
+                            <div fxLayout="row" fxLayoutAlign="center center">
+                                <button class="mr-8" mat-raised-button matStepperPrevious type="button" color="accent">
+                                    {{'SHARED.BACK' | translate}}
+                                </button>
+                                <div class="button-container">
+                                    <div class="spinner-container" *ngIf="loading">
+                                      <mat-spinner diameter="24"></mat-spinner>
+                                    </div>
+                                    <button mat-raised-button type="button" color="accent" [disabled]="loading" (click)="insertTraining()">
+                                        {{'INSERT_TRAINING.CREATE' | translate}}
+                                    </button>
+                                </div>
+                                
+                            </div>
+    
+                        </form>
+
+                    </mat-step>
+    
+                </mat-horizontal-stepper>
+    
+                
+            </div>
+        </div>
+        
+          
+    </div>
+
+
+    <!-- / CONTENT -->
+
+</div>
+

@@ -1,0 +1,32 @@
+#insert-group-form{
+    padding: 32px;
+
+    .form-container{
+        width: 80%;
+        background-color: #fff;
+    }
+
+    .v-a-m{
+        vertical-align: middle;
+    }
+
+    .authors-container{
+        overflow-x: scroll;
+        padding: 3px;
+    }
+
+    .author-item{
+        padding: 8px;
+        /* border: #2d323e30 1px solid; */
+        border-radius: 4px;
+        margin: 2px;
+        background: #eeeeeeb8;
+    }
+
+    .auth-item-icon{
+        padding-right: 8px;
+        border-right: #00000045 1px solid;
+        margin-right: 4px;
+        display: inline-block;
+    }
+}

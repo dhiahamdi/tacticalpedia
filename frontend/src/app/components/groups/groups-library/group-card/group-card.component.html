@@ -1,0 +1,41 @@
+<!-- CARD 11 -->
+<div class="card">
+
+    <!-- PREVIEW -->
+    <div class="card-preview">
+
+        <div class="fuse-card">
+            <div class="card-image-container">
+                <img class="card-image top-radius pointer" src="/assets/images/image-placeholder.jpg" [routerLink]="['/group/'+ group._id]" *ngIf="!cover_image">
+                <img class="card-image top-radius pointer" [src]="cover_image.data" [routerLink]="['/group/'+ group._id]" *ngIf="cover_image && cover_image.type.match('image.')">
+
+
+            </div>     
+
+            <div class="p-16 pb-4">
+                <div class="h1 pointer left" [routerLink]="['/group/'+ group._id]">{{group.name}}</div>
+                <!-- <div class="h4 secondary-text">Free on Thursdays</div> -->
+            </div>
+
+            <div class="p-16 pt-0 line-height-1.75 left">
+                {{group.description}}
+            </div>
+
+            <div class="p-16 border-top-gray" fxLayout="row" fxLayoutAlign="start center">
+                <!-- <img class="w-40 h-40 border-radius-100" [src]="profilePicUrl"> -->
+
+                <div class="ml-16">
+                    <div class="text-bold pointer">{{group.authors[0].profile.name }} {{group.authors[0].profile.surname }}</div>
+                    <div class="h5 text-bold secondary-text">{{group.updatedAt}}</div>
+                </div>
+                <span fxFlex></span>
+                <a [routerLink]="['/group/'+ group._id]"> <mat-icon>launch</mat-icon></a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- / CARD 11 -->
+

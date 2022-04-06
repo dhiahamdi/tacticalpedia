@@ -1,0 +1,131 @@
+<!-- CONTENT -->
+<div id="profile" class="page-layout simple tabbed" *ngIf="dataIsLoaded">
+
+    <!-- HEADER -->
+    <div class="header p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between end">
+
+        <div class="user-info" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+                fxLayoutAlign.gt-sm="start center">
+            <img class="profile-image avatar huge" [src]="profilePicUrl"
+                    [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+            <div class="name" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                {{profile.name + ' ' + profile.surname}}
+            </div>
+        </div>
+
+      
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- CONTENT -->
+    <div class="content">
+        <div id="about" class="p-24" fxLayout="row wrap" fxLayoutAlign="center center">
+
+            <div class="about-content" fxLayout="column" fxFlex="50" fxFlex.lt-md="80" fxFlex.lt-sm="100"> 
+                <!-- fxFlex.gt-sm="50" fxFlex.gt-md="65" -->
+ 
+                <div class="profile-box info-box general" fxLayout="column">
+        
+                    <header class="accent" fxLayout="row" fxLayoutAlign="center center">
+                        <div class="title">{{'PROFILE.GENERAL_INFO' | translate}}</div>
+                    </header>
+
+                        <div class="content" fxLayout="row" fxLayoutAlign="start center">
+
+                            <div class="info-line" fxLayout="column" fxFlex fxLayoutAlign="start center">
+                                <div class="title">{{'PROFILE.DISCIPLINE' | translate}}</div>
+                                <div class="info">{{'DISCIPLINES.'+profile.discipline | translate}}</div>
+                            </div>
+            
+                            <div class="info-line" fxLayout="column" fxLayoutAlign="start center">
+                                <div class="title">{{'PROFILE.ROLE' | translate}}</div>
+                                <div class="info">{{'ROLES.' + profile.role | translate}}</div>
+                            </div>
+                            <div class="info-line" fxLayout="column" fxFlex fxLayoutAlign="start center">
+                                <div class="title">{{'PROFILE.QUALIFICATION' | translate}}</div>
+                                <div class="info">{{'QUALIFICATIONS.' + profile.qualification | translate}}</div>
+                            </div>
+
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="center center" *ngIf="trainings">
+            <h2 class="mat-display-1" style="margin: 32px 0 32px">Trainings</h2>
+        </div>
+        
+
+            <div class="training-grid" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-evenly" [@animateStagger]="{value:'50'}" *ngIf="trainings">
+                <training-card class="mb-24" [@animate]="{value:'*',params:{y:'100%'}}"
+                    *ngFor="let training of trainings"
+                    [training]="training"
+                    fxFlex="0 1 calc(25%)"
+                    fxFlex.lt-md="0 1 calc(50%)"
+                    fxFlex.lt-sm="100%"
+                    >
+                </training-card> 
+                
+                <!-- Used to align last row-->
+                <ng-container *ngIf="trainings && trainings.length > 0">
+                    <training-card class="fill mb-24"[@animate]="{value:'*',params:{y:'100%'}}"
+                        [training]="trainings[0]"
+
+                        fxFlex="0 1 calc(25%)"
+                    fxFlex.lt-md="0 1 calc(50%)"
+                    fxFlex.lt-sm="100%"
+                                    >
+                    </training-card>
+
+                    <training-card class="fill mb-24"[@animate]="{value:'*',params:{y:'100%'}}"
+                        [training]="trainings[0]"
+
+                        fxFlex="0 1 calc(25%)"
+                    fxFlex.lt-md="0 1 calc(50%)"
+                    fxFlex.lt-sm="100%"
+                                    >
+                    </training-card>
+
+                    <training-card class="fill mb-24"[@animate]="{value:'*',params:{y:'100%'}}"
+                        [training]="trainings[0]"
+
+                        fxFlex="0 1 calc(25%)"
+                    fxFlex.lt-md="0 1 calc(50%)"
+                    fxFlex.lt-sm="100%"
+                                    >
+                    </training-card>
+
+                </ng-container>
+
+            </div>
+
+
+        <!-- <mat-tab-group dynamicHeight="true">
+
+            <mat-tab label="Timeline">
+                <profile-timeline></profile-timeline>
+            </mat-tab>
+
+            <mat-tab label="About">
+                <profile-about></profile-about>
+            </mat-tab>
+
+            <mat-tab label="Photos & Videos">
+                <profile-photos-videos></profile-photos-videos>
+            </mat-tab>
+
+        </mat-tab-group> -->
+
+    </div>
+    <!-- / CONTENT -->
+
+</div>
+    
+
+
+
+
+
+

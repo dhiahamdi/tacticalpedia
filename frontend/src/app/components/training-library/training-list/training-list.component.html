@@ -1,0 +1,12 @@
+<div *ngIf="trainings.length === 0" fxLayout="column" fxLayoutAlign="center center" fxFlexFill>
+    <span class="no-messages-text hint-text">{{ 'TRAINING_LIBRARY.NO_TRAININGS' | translate}}</span>
+</div>
+
+<div class="training-list" [@animateStagger]="{value:'50'}">
+    <training-item [@animate]="{value:'*',params:{y:'100%'}}"
+                    *ngFor="let training of filteredTrainings"
+                    [training]="training"
+                    (click)=showTraining(training)
+                    >
+    </training-item>
+</div>

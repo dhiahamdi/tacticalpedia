@@ -1,0 +1,57 @@
+
+    <div class="training-grid" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-evenly" fxLayoutAlign.lt-sm="start" [@animateStagger]="{value:'50'}">
+
+        <training-card class="mb-24" [@animate]="{value:'*',params:{y:'100%'}}"
+             *ngFor="let training of trainings"
+            [training]="training"
+
+            fxFlex="0 1 calc(25%)"
+        fxFlex.lt-md="0 1 calc(50%)"
+        fxFlex.lt-sm="100%"
+                        >
+        </training-card>
+
+        <ng-container *ngIf="trainings && trainings.length == 0">
+            {{ 'SHARED.NO_RESULTS_FOUND' | translate }}
+        </ng-container>
+
+
+        <!-- Used to align last row-->
+        <ng-container *ngIf="trainings && trainings.length > 0">
+            <training-card class="fill mb-24"[@animate]="{value:'*',params:{y:'100%'}}"
+                [training]="trainings[0]"
+
+                fxFlex="0 1 calc(25%)"
+            fxFlex.lt-md="0 1 calc(50%)"
+            fxFlex.lt-sm="0 0 calc(100%)"
+                            >
+            </training-card>
+
+            <training-card class="fill mb-24"[@animate]="{value:'*',params:{y:'100%'}}"
+                [training]="trainings[0]"
+
+                fxFlex="0 1 calc(25%)"
+            fxFlex.lt-md="0 1 calc(50%)"
+            fxFlex.lt-sm="0 0 calc(100%)"
+                            >
+            </training-card>
+
+            <training-card class="fill mb-24"[@animate]="{value:'*',params:{y:'100%'}}"
+                [training]="trainings[0]"
+
+                fxFlex="0 1 calc(25%)"
+            fxFlex.lt-md="0 1 calc(50%)"
+            fxFlex.lt-sm="0 0 calc(100%)"
+                            >
+            </training-card>
+            
+        </ng-container>
+
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <div *ngIf="isLoading" class="spinner-container">
+            <span class="spinner"></span>
+        </div>
+    </div>
+    

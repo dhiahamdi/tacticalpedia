@@ -1,0 +1,42 @@
+<!-- CARD 11 -->
+<div class="card">
+
+    <!-- PREVIEW -->
+    <div class="card-preview">
+
+        <div class="fuse-card">
+
+            <div class="card-image-container">
+                <img class="card-image top-radius pointer" src="/assets/images/image-placeholder.jpg" [routerLink]="['/training/'+ training._id]" *ngIf="!trainingCover">
+                <img class="card-image top-radius pointer" [src]="trainingCover.data" [routerLink]="['/training/'+ training._id]" *ngIf="trainingCover && trainingCover.type.match('image.*')">
+                <video [src]="trainingCover.data" class="card-image top-radius pointer" *ngIf="trainingCover && trainingCover.type.match('video.*')" preload="metadata" [poster]="videoThumb" controls muted onloadedmetadata="this.muted = true">
+                </video>
+
+            </div>     
+
+            <div class="p-16 pb-4">
+                <div class="h1 pointer left" [routerLink]="['/training/'+ training._id]">{{training.name}}</div>
+                <!-- <div class="h4 secondary-text">Free on Thursdays</div> -->
+            </div>
+
+            <div class="p-16 pt-0 line-height-1.75 left">
+                {{truncate(training.description)}}
+            </div>
+
+            <div class="p-16 border-top-gray" fxLayout="row" fxLayoutAlign="start center">
+                <img class="w-40 h-40 border-radius-100" [src]="profilePicUrl">
+
+                <div class="ml-16">
+                    <div class="text-bold pointer" (click)="goToProfile(username)">{{author}}</div>
+                    <div class="h5 text-bold secondary-text">{{training.updatedAt}}</div>
+                </div>
+                <span fxFlex></span>
+                <a [routerLink]="['/training/'+ training._id]"> <mat-icon>launch</mat-icon></a>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<!-- / CARD 11 -->

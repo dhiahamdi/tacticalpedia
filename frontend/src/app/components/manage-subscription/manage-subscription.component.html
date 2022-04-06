@@ -1,0 +1,275 @@
+<div class="page-layout simple fullwidth">
+
+    <!-- HEADER -->
+    <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
+        <h2>{{'MANAGE_SUBSCRIPTION.TITLE' | translate}}</h2>
+    </div>
+    <!-- / HEADER -->
+    
+    <!-- / CONTENT -->
+
+    <div class="success" fxLayout="column" fxLayoutAlign="center center">
+        <p *ngIf="successMessage && !errorMessage">
+            {{ 'MANAGE_SUBSCRIPTION.PAYMENT_SUCCESS' | translate }}
+        </p>
+    </div>
+
+    <div class="warn" fxLayout="warn" fxLayoutAlign="center center" 
+        *ngIf="subscription && subscription.status == 'past_due'">
+        <p>
+            {{ 'MANAGE_SUBSCRIPTION.PAST_DUE_MESSAGE' | translate }}
+        </p>
+    </div>
+
+    <div class="warn" fxLayout="warn" fxLayoutAlign="center center" 
+        *ngIf="errorMessage">
+        <p>
+            {{ 'ERROR.GENERIC_ERROR_MESSAGE' | translate }}
+        </p>
+    </div>
+
+   
+
+    <div class="pt-40" fxLayout="column" fxLayoutAlign="center center">
+
+        <h2>Stato abbonamento: <span style="color: green">ATTIVO</span></h2>
+        <button mat-raised-button type="button" color="accent" (click)="stripePortal()"
+            *ngIf="subscription 
+                &&  subscription.type==='stripe' 
+                && subscription.status !== 'inactive' 
+                && subscription.status !== 'incomplete_expired' 
+                && subscription.status !== 'canceled'">
+                Gestisci abbonamento
+        </button>
+
+    
+         <!-- PRICE TABLES -->
+         <div class="price-tables mt-40" fxLayout="row wrap" fxLayoutAlign="center center">
+
+            <div class="price-table style-1 mat-elevation-z4" fxLayout="column">
+
+                <div class="package-type primary">
+                    <span>{{'CREATE_SUBSCRIPTION.FREE' | translate}}</span>
+                </div>
+
+                <div class="price" fxLayout="row" fxLayoutAlign="center start">
+                    <div class="currency">$</div>
+                    <div fxLayout="row" fxLayoutAlign="center end">
+                        <div class="value">4</div>
+                        <div class="period">/ month</div>
+                    </div>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <div class="terms" fxLayout="column">
+                    <div class="term">
+                        <span class="text-bold">10</span>
+                        Projects
+                    </div>
+                    <div class="term">
+                        <span class="text-bold">10</span>
+                        Pages
+                    </div>
+                    <div class="term">
+                        <span class="text-bold">100</span>
+                        Mb Disk Space
+                    </div>
+                </div>
+
+                <button mat-raised-button class="cta-button" color="accent" disabled='true'
+                *ngIf="
+                !subscription ||
+                (subscription && subscription.type === 'stripe')">
+                    {{'CREATE_SUBSCRIPTION.FREE' | translate}}
+                </button>
+
+                <button mat-raised-button class="cta-button" color="accent"
+                (click)="cancelPaypalSubscription()"
+                *ngIf="!paypalCancelSubcripttionMessage
+                && subscription 
+                && subscription.type === 'paypal'
+                && subscription.status != 'inactive'
+                && subscription.status != 'canceled'
+                && subscription.status != 'incomplete_expired'">
+                    {{'CREATE_SUBSCRIPTION.CANCEL_SUBSCRIPTION' | translate}}
+                </button>
+                
+
+            </div>
+
+            <div class="price-table style-1 mat-elevation-z12" fxLayout="column">
+
+                <div class="package-type primary" fxLayout="row" fxLayoutAlign="space-between center">
+                    <span>{{'CREATE_SUBSCRIPTION.MONTHLY' | translate}}</span>
+                    <span class="sale mat-accent-color mat-hue-1">Save 15%</span>
+                </div>
+
+                <div class="price" fxLayout="row" fxLayoutAlign="center start">
+                    <div class="currency">$</div>
+                    <div fxLayout="row" fxLayoutAlign="center end">
+                        <div class="value">8</div>
+                        <div class="period">/ month</div>
+                    </div>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <div class="terms" fxLayout="column">
+                    <div class="term">
+                        <span class="text-bold">20</span>
+                        Projects
+                    </div>
+                    <div class="term">
+                        <span class="text-bold">20</span>
+                        Pages
+                    </div>
+                    <div class="term">
+                        <span class="text-bold">200</span>
+                        Mb Disk Space
+                    </div>
+                </div>
+
+
+                <button *ngIf="subscription 
+                    && subscription.status !== 'incomplete_expired' 
+                    && subscription.status !== 'canceled' 
+                    && subscription.interval === 'monthly'"
+                    mat-raised-button class="cta-button" color="accent" disabled>
+                    ACTIVE
+                </button>
+
+                <button *ngIf="!subscription 
+                || subscription.status == 'inactive'
+                || subscription.status == 'canceled'
+                || subscription.status == 'incomplete_expired'"
+                    mat-raised-button class="cta-button" color="accent">
+                    BUY NOW
+                </button>
+
+                <button *ngIf="subscription.interval === 'yearly'"
+                    mat-raised-button class="cta-button" color="accent" disabled>
+                    BUY NOW
+                </button>
+                
+
+            </div>
+
+            <div class="price-table style-1 mat-elevation-z4" fxLayout="column">
+
+                <div class="package-type primary" fxLayout="row">
+                    <span>{{'CREATE_SUBSCRIPTION.YEARLY' | translate}}</span>
+                </div>
+
+                <div class="price" fxLayout="row" fxLayoutAlign="center start">
+                    <div class="currency">$</div>
+                    <div fxLayout="row" fxLayoutAlign="center end">
+                        <div class="value">12</div>
+                        <div class="period">/ month</div>
+                    </div>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <div class="terms" fxLayout="column">
+                    <div class="term">
+                        <span class="text-bold">40</span>
+                        Projects
+                    </div>
+                    <div class="term">
+                        <span class="text-bold">40</span>
+                        Pages
+                    </div>
+                    <div class="term">
+                        <span class="text-bold">500</span>
+                        Mb Disk Space
+                    </div>
+                </div>
+
+                <button *ngIf="subscription 
+                && subscription.interval === 'yearly'"
+                    mat-raised-button class="cta-button" color="accent" disabled>
+                    ACTIVE
+                </button>
+
+                <button *ngIf="subscription 
+                && subscription.type === 'stripe'
+                && subscription.interval === 'monthly'
+                && subscription.status != 'inactive'
+                && subscription.status != 'canceled'
+                && subscription.status != 'incomplete_expired'"
+                    mat-raised-button class="cta-button" color="accent" (click)="upgradeStripePlan()">
+                    UPGRADE
+                </button>
+
+
+                <button *ngIf="subscription 
+                && subscription.type === 'paypal'
+                && subscription.interval === 'monthly'
+                && subscription.status != 'inactive'
+                && subscription.status != 'canceled'
+                && subscription.status != 'incomplete_expired'"
+                    mat-raised-button class="cta-button" color="accent" (click)="upgradePaypalPlan()">
+                    UPGRADE
+                </button>
+
+                <button *ngIf="!subscription 
+                || subscription.status == 'inactive'
+                || subscription.status == 'canceled'
+                || subscription.status == 'incomplete_expired'"
+                    mat-raised-button class="cta-button" color="accent">
+                    BUY NOW
+                </button>
+
+            </div>
+
+            <div class="price-table style-1 mat-elevation-z4" fxLayout="column">
+
+                <div class="package-type primary">
+                    <span>{{'CREATE_SUBSCRIPTION.COMPANY' | translate}}</span>
+                </div>
+
+                <div class="price" fxLayout="row" fxLayoutAlign="center start">
+                    <div class="currency">$</div>
+                    <div fxLayout="row" fxLayoutAlign="center end">
+                        <div class="value">4</div>
+                        <div class="period">/ month</div>
+                    </div>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <div class="terms" fxLayout="column">
+                    <div class="term">
+                        <span class="text-bold">10</span>
+                        Projects
+                    </div>
+                    <div class="term">
+                        <span class="text-bold">10</span>
+                        Pages
+                    </div>
+                    <div class="term">
+                        <span class="text-bold">100</span>
+                        Mb Disk Space
+                    </div>
+                </div>
+
+                <button mat-raised-button class="cta-button" color="accent">INFO</button>
+
+            </div>
+
+        </div>
+        <!-- / PRICE TABLES -->
+
+
+        <mat-divider class="mt-48"></mat-divider>
+
+        <h2>{{'PROFILE.EDIT_BILLING_INFO' | translate}}</h2>
+        
+        <app-edit-billing-info></app-edit-billing-info>
+
+    </div>
+
+</div>
+
+
