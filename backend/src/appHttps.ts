@@ -11,7 +11,7 @@ const https = require('https');
 var cors = require('cors');
 
 var corsOptions = {
-    origin: 'https://flow.tacticalpedia.com',
+    origin: 'https://tacticalpedia.com',
     credentials: true };
 
 const app = express();
@@ -22,8 +22,8 @@ app.use(cookieParser());
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true, parameterLimit: 50000 }));
 
-var privateKey = fs.readFileSync('/opt/bitnami/apache/conf/flow.tacticalpedia.com.key');
-var certificate = fs.readFileSync('/opt/bitnami/apache/conf/flow.tacticalpedia.com.crt');
+var privateKey = fs.readFileSync('/opt/bitnami/apache/conf/tacticalpedia.com.key');
+var certificate = fs.readFileSync('/opt/bitnami/apache/conf/tacticalpedia.com.crt');
 
 var credentials = {key: privateKey, cert: certificate};
 
