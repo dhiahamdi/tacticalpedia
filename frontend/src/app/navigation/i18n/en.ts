@@ -13,7 +13,7 @@ export const locale = {
             'MANAGE_SUBSCRIPTION': 'Manage subscription',
             'CHANGE_PASSWORD': 'Change password',
             'LOGOUT': 'Logout',
-            'GROUPS': 'Groups',
+            'GROUPS': 'Coaching Rooms',
         }
     }
 };

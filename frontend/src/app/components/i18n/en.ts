@@ -74,17 +74,17 @@ export const locale = {
         },
         'GROUP': {
             'INSERT-FORM':{
-                'TITLE': 'New Group',
-                'ADD-BTN': 'CREATE GROUP',
+                'TITLE': 'New coaching room',
+                'ADD-BTN': 'create coaching room',
                 'ADD-AUTHOR': 'Add Author',
-                'NAME': 'Name',
+                'NAME': 'Coaching Room Title',
                 'DESCRIPTION': 'Description',
                 'SERVICE': 'Service',
                 'POLICY': 'Policy',
                 'TYPOLOGY': 'Typology',
                 'AUTHORS': 'Authors',
                 'USER': 'User e-mail',
-                'IMAGE': 'Group Image',
+                'IMAGE': 'Coaching Room Image',
 
             }
         },
@@ -336,7 +336,7 @@ export const locale = {
             'DESCRIPTION': 'Description',
             'OBSERVATIONS': 'Observations',
             'VARIANTS': 'Variants'
-            
+
         },
 
         'CUSTOMIZE_TRAINING': {
