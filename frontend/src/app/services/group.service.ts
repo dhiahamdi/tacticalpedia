@@ -92,8 +92,8 @@ export class GroupService {
  * 
  * @returns 
  */
-  getPublicGroups(): Observable<Group[]> {
-    return this.http.get<Group[]>(environment.apiUrl + BackendRoutes.GROUPS );
+   getPublicGroups(filters : any): Observable<Group[]> {
+    return this.http.post<Group[]>(environment.apiUrl + BackendRoutes.GROUPS , filters );
   }
 
 

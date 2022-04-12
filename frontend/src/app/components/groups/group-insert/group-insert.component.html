@@ -26,9 +26,34 @@
                     <textarea matInput rows="5" formControlName="description"></textarea>
                 </mat-form-field>
 
-                <mat-form-field appearance="outline" fxFlex="100">
+                <mat-form-field class="mr-12 select-tax" appearance="outline" fxFlex="20" fxFlex.lt-sm="100">
+
+                    <mat-label>{{'GROUP.INSERT-FORM.TOPIC' | translate}}</mat-label>
+                    <mat-select formControlName="topic" multiple>
+                        <mat-option *ngFor="let cat of topic_options" [value]="cat">
+                            {{ cat }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                
+                <mat-form-field class="mr-12 select-tax" appearance="outline" fxFlex="20" fxFlex.lt-sm="100">
+
+                    <mat-label>{{'GROUP.INSERT-FORM.DISCIPLINE' | translate}}</mat-label>
+                    <mat-select formControlName="discipline" >
+                        <mat-option *ngFor="let cat of discipline_options" [value]="cat">
+                            {{ cat }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="mr-12 select-tax" appearance="outline" fxFlex="20" fxFlex.lt-sm="100">
+
                     <mat-label>{{'GROUP.INSERT-FORM.SERVICE' | translate}}</mat-label>
-                    <textarea matInput rows="5" formControlName="services"></textarea>
+                    <mat-select formControlName="services" multiple>
+                        <mat-option *ngFor="let cat of services_options" [value]="cat">
+                            {{ cat }}
+                        </mat-option>
+                    </mat-select>
                 </mat-form-field>
 
                 <mat-form-field class="mr-12 select-tax" appearance="outline" fxFlex="20" fxFlex.lt-sm="100">

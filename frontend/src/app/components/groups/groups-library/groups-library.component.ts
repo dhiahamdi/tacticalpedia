@@ -27,7 +27,14 @@ export class GroupsLibraryComponent implements OnInit {
   public groups: Group[];
   public filteredGroups: Group[];
   isLoading = false;
-
+  public selected_service;
+  public selected_topic;
+  public selected_discipline;
+  services_options: string[] = [ 'Training Library', 'Courses', 'Coaching & Tutoring', 'Insight' ,'Q&A','Articles & Publishings'];
+  topic_options: string[] =['Training Metodology','Motor Preparation','Psychology  & Communication'];
+  policy_options: string[] = ['PUBLIC', 'PRIVATE','HIDDEN'];
+  typology_options: string[] = ['FREE', 'PAYED','SUBSCRIPTION','INVITATION'];
+  discipline_options : string[] = ['Football', 'BasketBall', 'Volleyball', 'Rugby', 'Boating','Gymnastics','Other'];
   constructor(
     private _fuseConfigService: FuseConfigService,
     private translationLoader: FuseTranslationLoaderService,
@@ -39,13 +46,18 @@ export class GroupsLibraryComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.groupService.getPublicGroups().subscribe(data => {
+    this.groupService.getPublicGroups({service : this.selected_service , topic : this.selected_topic , discipline : this.selected_discipline}).subscribe(data => {
       this.groups = data;
       console.log(this.groups)
     });
 
   }
 
+  getPublicGroups():void {
+    this.groupService.getPublicGroups({service : this.selected_service , topic : this.selected_topic , discipline : this.selected_discipline}).subscribe(data => {
+      this.groups = data;
+      console.log(this.groups)
+    })}
 
   handleError(error: any) {
     this.snackbar.open(this.translate.instant('ERROR.GENERIC_ERROR_MESSAGE'), this.translate.instant('SHARED.CLOSE'), {
@@ -54,4 +66,3 @@ export class GroupsLibraryComponent implements OnInit {
   }
 
 }
-

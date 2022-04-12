@@ -34,7 +34,46 @@
             <!-- / SEARCH -->
 
         </div>
+        <mat-expansion-panel >
 
+            <mat-expansion-panel-header>
+                {{'TRAINING_LIBRARY.FILTERS' | translate}}
+            </mat-expansion-panel-header>
+
+            <div class="mt-40 ml-24 mr-24" fxLayout="row wrap" fxLayoutAlign="center center">
+
+                <mat-form-field class="mr-12 select-tax" appearance="outline" fxFlex="20" fxFlex.lt-sm="100">
+
+                    <mat-label>{{'GROUP.INSERT-FORM.SERVICE' | translate}}</mat-label>
+                    <mat-select [(ngModel)]="selected_service" (selectionChange)="getPublicGroups()">
+                        <mat-option *ngFor="let cat of services_options" [value]="cat">
+                            {{ cat }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="mr-12" appearance="outline" fxFlex="20" fxFlex.lt-sm="100">
+
+                    <mat-label>{{'GROUP.INSERT-FORM.TOPIC' | translate}}</mat-label>
+                    <mat-select [(ngModel)]="selected_topic" (selectionChange)="getPublicGroups()">
+                        <mat-option *ngFor="let cat of topic_options" [value]="cat">
+                            {{ cat }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="mr-12" appearance="outline" fxFlex="20" fxFlex.lt-sm="100">
+                        <mat-label>{{'GROUP.INSERT-FORM.DISCIPLINE' | translate}}</mat-label>
+                        <mat-select [(ngModel)]="selected_discipline" (selectionChange)="getPublicGroups()">
+                            <mat-option *ngFor="let cat of discipline_options" [value]="cat">
+                                {{ cat }}
+                            </mat-option>
+                        </mat-select>
+                </mat-form-field>
+
+            </div>
+
+        </mat-expansion-panel>
 
 
 

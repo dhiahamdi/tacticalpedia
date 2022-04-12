@@ -182,14 +182,21 @@ export default class GroupService {
         }
     }
 
-    async getGroups(): Promise<Group[]> {
+    async getGroups(filters): Promise<Group[]> {
 
         try {
 
             let GroupsList = await GroupDao.getAll();
 
             if (!GroupsList) throw new Error('Unable to fetch Groups');
+            GroupsList = GroupsList.filter((group) =>{
 
+                const service_check : boolean = (filters.service) ? (group.services.find(el => el.toLowerCase() == filters.service.toLowerCase()) != undefined )  : true;
+                const topic_check : boolean = (filters.topic) ? (group.topic.find(el => el.toLowerCase() == filters.topic.toLowerCase()) != undefined )  : true;
+                const discpline_check : boolean = (filters.discipline) ? (group.discipline.find(el => el.toLowerCase() == filters.discipline.toLowerCase()) != undefined )  : true;
+
+                return service_check && topic_check && discpline_check
+            })
             return GroupsList;
 
         } catch (e) {

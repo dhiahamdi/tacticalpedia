@@ -200,13 +200,13 @@ router.post('/delete-imgs', async (req, res) => {
 })
 
 
-router.get('/list', async (req, res) => {
+router.post('/list', async (req, res) => {
 
     const groupService = new GroupService();
 
     try {
 
-        const Groups = await groupService.getGroups();
+        const Groups = await groupService.getGroups(req.body);
 
         return res.status(200).json(Groups ? Groups : []);
 

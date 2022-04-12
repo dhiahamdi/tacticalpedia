@@ -13,7 +13,13 @@ const Group = new mongoose.Schema(
             type: String,
         },
         services: {
-            type: String,
+            type: [String],
+        },
+        topic: {
+            type: [String],
+        },
+        discipline: {
+            type: [String],
         },
         typology: {
             type: String,

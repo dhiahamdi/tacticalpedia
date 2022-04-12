@@ -29,12 +29,12 @@ import { locale as portuguese } from '../../i18n/pt';
   animations: fuseAnimations
 })
 export class GroupInsertComponent implements OnInit {
-
   form: FormGroup;
-
-  policy_options: string[] = ['PUBLIC', 'PRIVATE'];
-  typology_options: string[] = ['FREE', 'PAYED'];
-
+  services_options: string[] = [ 'Training Library', 'Courses', 'Coaching & Tutoring', 'Insight' ,'Q&A','Articles & Publishings'];
+  topic_options: string[] =['Training Metodology','Motor Preparation','Psychology  & Communication'];
+  policy_options: string[] = ['PUBLIC', 'PRIVATE','HIDDEN'];
+  typology_options: string[] = ['FREE', 'PAYED','SUBSCRIPTION','INVITATION'];
+  discipline_options : string[] = ['Football', 'BasketBall', 'Volleyball', 'Rugby', 'Boating','Gymnastics','Other'];
   public authors: any[];
 
   public loading: boolean;
@@ -65,7 +65,9 @@ export class GroupInsertComponent implements OnInit {
     this.form = this._formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      services: [''],
+      services: ['', Validators.required],
+      topic: ['', Validators.required],
+      discipline: ['', Validators.required],
       policy: ['', Validators.required],
       typology: ['', Validators.required],
       selected_user_mail: [''],

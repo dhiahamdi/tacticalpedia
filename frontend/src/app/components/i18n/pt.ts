@@ -69,6 +69,25 @@ export const locale = {
             'SEND_CONFIRM': 'Envie confirmação novamente',
             'CONFIRM_EMAIL_SENT' : 'Email de confirmação enviado com sucesso'
         },
+        
+        'GROUP': {
+            'INSERT-FORM':{
+                'TITLE': 'Nuovo gruppo',
+                'ADD-BTN': 'Creare un Gruppo',
+                'ADD-AUTHOR': 'Aggiungi autore',
+                'NAME': 'Nome',
+                'DESCRIPTION': 'Descrizione',
+                'SERVICE': 'Servizio',
+                'POLICY': 'Politica',
+                'TOPIC': 'Argomento',
+                'TYPOLOGY': 'Tipologia',
+                'DISCIPLINE': 'Discipline',
+                'AUTHORS': 'Autori',
+                'USER': 'E-mail dell utente',
+                'IMAGE': 'Immagine di Gruppo',
+
+            }
+        },
 
         'FORGOT':{
             'TITLE': 'RECUPERAR SENHA',
