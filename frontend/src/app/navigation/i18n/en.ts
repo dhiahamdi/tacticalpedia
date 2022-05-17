@@ -13,7 +13,10 @@ export const locale = {
             'MANAGE_SUBSCRIPTION': 'Manage subscription',
             'CHANGE_PASSWORD': 'Change password',
             'LOGOUT': 'Logout',
-            'GROUPS': 'Groups',
+            'NAV.GROUP' : 'Group',
+            'INSERT_GROUP' : 'New Group',
+            'Group_LIBRARY': 'Group library',
+            'Group_EXPLORE': 'Explore Groups',
         }
     }
 };

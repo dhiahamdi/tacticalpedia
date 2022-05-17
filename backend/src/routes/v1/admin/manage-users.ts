@@ -37,6 +37,7 @@ router.get('/users', async(req, res)=> {
 });
 
 
+
 router.get('/user/:id', async(req, res)=> {
 
     const manageUsersService = new ManageUsersService();

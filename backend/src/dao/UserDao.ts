@@ -46,6 +46,15 @@ export default class UserDao {
         return await UserModel.findOne({email: email});
     }
 
+    /***
+     * Retrieves user with a given email
+     * 
+     * @param email    
+     */
+     public static async searchUserByEmail(email: string) {
+        return await UserModel.findOne({email: email}).select('_id , email , username');
+    }
+
 
     /***
      * Retrieves user by its passkey
@@ -65,6 +74,7 @@ export default class UserDao {
 
         return await UserModel.find({});
     }
+
 
     /***
      * Updates a user with the given fields
@@ -117,14 +127,7 @@ export default class UserDao {
 
         return userRecord.profile.image;
     }
-/***
-     * Retrieves user with a given email
-     * 
-     * @param email    
-     */
- public static async searchUserByEmail(email: string) {
-    return await UserModel.findOne({email: email}).select('_id , email , username');
-}
+
 
     /**
      * Deletes user by its id

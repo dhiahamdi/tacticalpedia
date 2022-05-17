@@ -1,0 +1,81 @@
+<div fxLayout="row" fxLayoutAlign="start center" *ngIf="group" class="training-item"> 
+
+
+
+    <div class="info" fxFlex FlexLayout="column">
+
+        <div class="row-1" fxLayout="row" fxLayoutAlign="start center">
+
+            <div class="name" fxLayout="row" fxLayoutAlign="start center" fxFlex>
+                <img class="avatar" src="/assets/images/image-placeholder.jpg" 
+                    *ngIf="!cover_image">
+                <img class="avatar" [src]="cover_image.data" 
+                    *ngIf="cover_image && cover_image.type.match('image.*')">
+                <span class="text-truncate">{{group.name}}</span>
+            </div>
+
+            <div class="blue-500 label tax-label ml-4 p-4">
+                <div class="label-title">
+                    {{ group.typology }}
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="row-2" fxLayout="row" fxLayoutAlign="start center">
+
+            <div fxLayout="column" fxLayoutAlign="start start">
+
+                <div class="message text-truncate">
+                    {{group.description}}
+                </div>
+
+                <b class="mt-4">Services</b>
+                <div class="labels" fxLayout="row wrap" >
+                    <div class="mt-0" fxLayout="column" fxLayoutAlign="start center" *ngFor="let cat of group.services">
+                        <div class="blue-500 label tax-label mr-4">
+                            <div class="label-title">
+                                {{ cat }}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <b class="mt-4">Topic</b>
+                <div class="labels" fxLayout="row wrap" >
+                    <div class="mt-0" fxLayout="column" fxLayoutAlign="start center" *ngFor="let topic of group.topic">
+                        <div class="blue-500 label tax-label mr-4">
+                            <div class="label-title">
+                                {{ topic }}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <b class="mt-4">Discipline</b>
+                <div class="labels" fxLayout="row wrap" >
+                    <div class="mt-0" fxLayout="column" fxLayoutAlign="start center" *ngFor="let discipline of group.discipline">
+                        <div class="blue-500 label tax-label mr-4">
+                            <div class="label-title">
+                                {{ discipline }}
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- <mat-checkbox [(ngModel)]="selected" (ngModelChange)="onSelectedChange()"
+    (click)="$event.stopPropagation();"> </mat-checkbox> -->
+
+</div>

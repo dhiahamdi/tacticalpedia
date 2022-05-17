@@ -28,6 +28,21 @@ export default class ManageUsersService {
         }
     }
 
+    public async searchUserByMail(user_mail : string): Promise<any> {
+
+        try{
+
+            const usersRecord = await UserDao.searchUserByEmail(user_mail);
+
+            if(!usersRecord) throw new Error('Unable to find user ');
+
+            return usersRecord;
+
+        }catch(e){
+            throw(e);
+        }
+    }
+
 
     /**
      * Retrieves a specific user by its id
@@ -120,20 +135,6 @@ export default class ManageUsersService {
             return guid_value;
         } 
 
-    }
-    public async searchUserByMail(user_mail : string): Promise<any> {
-
-        try{
-
-            const usersRecord = await UserDao.searchUserByEmail(user_mail);
-
-            if(!usersRecord) throw new Error('Unable to find user ');
-
-            return usersRecord;
-
-        }catch(e){
-            throw(e);
-        }
     }
 
 

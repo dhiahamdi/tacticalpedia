@@ -22,6 +22,7 @@ export enum BackendRoutes {
   USERID_FROM_USERNAME = '/profile/id-from-username',
   CAN_PUBLISH ="/profile/can-publish",
   PROFILE_PIC_FROM_ID ='/profile/picture/from-id',
+  PROFILE_PIC_MANY ='/profile/pictures/from-ids',
   GET_PROFILE_USERNAME = '/profile/username/from-id',
   PROFILE_SET_LANG = '/profile/lang',
 
@@ -77,6 +78,7 @@ export enum BackendRoutes {
 
   /* ADMIN */
   ADMIN_GET_USERS = '/admin/users',
+  ADMIN_GET_USERS_MIN = '/admin/users/min',
   ADMIN_GET_USER = '/admin/user/',
   ADMIN_GET_PROFILE_PIC = '/admin/user/:id/get-profile-pic',
   ADMIN_UPDATE_USER = '/admin/update-user',
@@ -87,6 +89,7 @@ export enum BackendRoutes {
   ADMIN_CUSTOMIZE_GET_SELECT_TAXONOMIES = '/admin/customize/select-taxonomies',
   ADMIN_CUSTOMIZE_SYNC_SELECT_TAXONOMIES = '/admin/customize/sync-select-taxonomies',
   ADMIN_DELETE_USER = '/admin/user/delete',
+  
 
   /* GROUP  */
   GROUP_SEARCH_ATHOR_BY_EMAIL = '/group/search-author/',
@@ -96,8 +99,16 @@ export enum BackendRoutes {
   GROUP_ADD_IMAGES = '/group/add-images',
   GROUP_DEL_IMAGES = '/group/delete-imgs',
   GROUPS = '/group/list',
+  GROUPS_USER = '/group/mygroups',
+  GROUPS_USER_SUB = '/group/user-group-subs',
   GROUP_ADD_AUTHOR = '/group/add-author',
+  GROUP_ADD_AUTHOR_EMAIL = '/group/add-author-email',
+  GROUP_REMOVE_AUTHOR = '/group/del-author',
   GROUP_ADD_TRAINING = '/group/add-training',
+  GROUP_REMOVE_TRAINING = '/group/remove-training',
   GROUP_ADD_SUBSCRIPTION = '/group/add-subs',
-  GROUP_GET_IMAGE = '/group/img'
+  GROUP_REMOVE_SUBSCRIPTION = '/group/del-subs',
+  GROUP_GET_IMAGE = '/group/img',
+  GROUPS_SINGLE = '/group/',
+  GROUPS_TRAINING = '/group/training/',
 }

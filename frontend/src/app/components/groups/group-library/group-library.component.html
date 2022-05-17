@@ -1,0 +1,114 @@
+<div class="page-layout simple fullwidth">
+
+    <!-- CONTENT -->
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent p-24" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-xs="row"
+            fxLayoutAlign.gt-xs="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-sm-0" fxLayout="row" fxLayoutAlign="start center">
+                <span class="logo-text h1">Explore Groups</span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <!-- <div class="search-wrapper mt-40" fxFlex="50"  fxFlex.lt-md="80" fxLayout="row" fxLayoutAlign="start center">
+
+            <div class="search" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="secondary-text">search</mat-icon>
+                <input  [(ngModel)]="searchInput" (ngModelChange)="setCurrentSearchInput()" [placeholder]="'HOME.SEARCH' | translate" fxFlex>
+            </div>
+
+        </div> -->
+
+            <div class="search-wrapper  ml-sm-32">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon style="color: #545454 !important">search</mat-icon>
+                    <input [placeholder]="'HOME.SEARCH' | translate">
+                </div>
+            </div>
+            <!-- / SEARCH -->
+
+            
+
+
+        </div>
+
+        <mat-expansion-panel >
+
+            <mat-expansion-panel-header>
+                {{'TRAINING_LIBRARY.FILTERS' | translate}}
+            </mat-expansion-panel-header>
+
+            <div class="mt-40 ml-24 mr-24" fxLayout="row wrap" fxLayoutAlign="center center">
+
+                <mat-form-field class="mr-12 select-tax" appearance="outline" fxFlex="20" fxFlex.lt-sm="100">
+
+                    <mat-label>{{'GROUP.INSERT-FORM.SERVICE' | translate}}</mat-label>
+                    <mat-select [(ngModel)]="selected_service" (selectionChange)="getPublicGroups()">
+                        <mat-option *ngFor="let cat of services_options" [value]="cat">
+                            {{ cat }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="mr-12" appearance="outline" fxFlex="20" fxFlex.lt-sm="100">
+
+                    <mat-label>{{'GROUP.INSERT-FORM.TOPIC' | translate}}</mat-label>
+                    <mat-select [(ngModel)]="selected_topic" (selectionChange)="getPublicGroups()">
+                        <mat-option *ngFor="let cat of topic_options" [value]="cat">
+                            {{ cat }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="mr-12" appearance="outline" fxFlex="20" fxFlex.lt-sm="100">
+                        <mat-label>{{'GROUP.INSERT-FORM.DISCIPLINE' | translate}}</mat-label>
+                        <mat-select [(ngModel)]="selected_discipline" (selectionChange)="getPublicGroups()">
+                            <mat-option *ngFor="let cat of discipline_options" [value]="cat">
+                                {{ cat }}
+                            </mat-option>
+                        </mat-select>
+                </mat-form-field>
+
+            </div>
+
+        </mat-expansion-panel>
+
+
+   
+
+
+
+
+
+
+
+        <!-- CONTENT CARD -->
+        <div class="content-card mt-40">
+
+            <div class="content">
+
+                <div class="training-grid" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="space-evenly"
+                    fxLayoutAlign.lt-sm="start">
+
+                    <app-group-card class="mb-24" *ngFor="let group of groups" [group]="group" fxFlex="0 1 calc(40%)"
+                        fxFlex.lt-md="0 1 calc(50%)" fxFlex.lt-sm="100%">
+                    </app-group-card>
+
+
+
+
+                </div>
+            </div>
+
+        </div>
+        <!-- / CONTENT HEADER -->
+
+
+    </div>
+
+</div>

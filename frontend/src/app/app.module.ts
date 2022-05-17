@@ -94,12 +94,15 @@ import { ConfirmDeleteDialogComponent } from './components/utils/confirm-delete-
 import { AdminDeleteDialogComponent } from './components/utils/admin-delete-dialog/admin-delete-dialog.component';
 import { TrainingOwnerGuard } from './helpers/training-owner.guard';
 import { defaultSelectTaxonomiesResolverService } from './helpers/defaultSelectTaxonomies.resolver';   
-import { GroupsLibraryComponent } from './components/groups/groups-library/groups-library.component';
 import { MatCardModule } from '@angular/material/card';
-import { GroupItemComponent } from './components/groups/group-item/group-item.component';
-import { GroupDetailsComponent } from './components/groups/group-details/group-details.component';
-import { GroupCardComponent } from './components/groups/groups-library/group-card/group-card.component';
 import { GroupInsertComponent } from './components/groups/group-insert/group-insert.component';
+import { GroupLibraryComponent } from './components/groups/group-library/group-library.component';
+import { GroupCardComponent } from './components/groups/group-library/group-card/group-card.component';
+import { SingleGroupComponent } from './components/groups/single-group/single-group.component';
+import { GroupEditComponent } from './components/groups/group-edit/group-edit.component';
+import { MyGroupComponent } from './components/groups/my-group/my-group.component';
+import { GroupSubscriptionComponent } from './components/groups/group-subscription/group-subscription.component';
+import { GroupItemComponent } from './components/groups/my-group/group-item/group-item.component';
 
 
 const appRoutes: Routes = [
@@ -167,24 +170,7 @@ const appRoutes: Routes = [
         component: ForgotPasswordComponent,
         canActivate: [NoAuthGuard]
     },
-    {
-        path      : 'groups/groups-library',
-        pathMatch : 'full',
-        component: GroupsLibraryComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path      : 'group/insert',
-        pathMatch : 'full',
-        component: GroupInsertComponent,
-        canActivate: [AuthGuard]
-    },
-    {
-        path      : 'groups/group-details',
-        pathMatch : 'full',
-        component: GroupDetailsComponent,
-        canActivate: [AuthGuard]
-    },
+
     {
         path      : 'reset',
         pathMatch : 'full',
@@ -268,6 +254,40 @@ const appRoutes: Routes = [
         component: SingleTrainingComponent
     },
     {
+        path      : 'group/insert',
+        pathMatch : 'full',
+        component: GroupInsertComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path      : 'group/library',
+        pathMatch : 'full',
+        component: GroupLibraryComponent,
+    },
+    {
+        path      : 'group/mygroups',
+        pathMatch : 'full',
+        component: MyGroupComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path      : 'group/subs',
+        pathMatch : 'full',
+        component: GroupSubscriptionComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path      : 'group/:id',
+        pathMatch : 'full',
+        component: SingleGroupComponent,
+    },
+    {
+        path      : 'group/edit/:id',
+        pathMatch : 'full',
+        component: GroupEditComponent,
+        canActivate: [AuthGuard]
+    },
+    {
         path      : 'admin/user-list',
         pathMatch : 'full',
         component: AdminUserListComponent,
@@ -291,6 +311,7 @@ const appRoutes: Routes = [
     {   path: 'unexpected-error', 
         component: UnexpectedErrorComponent
     },
+    
     {
         path : '**',
         redirectTo: '404'
@@ -340,11 +361,14 @@ const appRoutes: Routes = [
         UnexpectedErrorComponent,
         ConfirmDeleteDialogComponent,
         AdminDeleteDialogComponent,
-        GroupsLibraryComponent,
-        GroupItemComponent,
-        GroupDetailsComponent,
-        GroupCardComponent,
         GroupInsertComponent,
+        GroupLibraryComponent,
+        GroupCardComponent,
+        SingleGroupComponent,
+        GroupEditComponent,
+        MyGroupComponent,
+        GroupSubscriptionComponent,
+        GroupItemComponent,
     ],
     imports     : [
         BrowserModule,

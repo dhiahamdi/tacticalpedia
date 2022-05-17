@@ -2,19 +2,19 @@
 
     <!-- HEADER -->
     <div class="header accent p-24" fxLayout="row" fxLayoutAlign="start center">
-        <h2>{{'GROUP.INSERT-FORM.TITLE' | translate}}</h2>
+        <h2>Edit Group</h2>
     </div>
     <!-- / HEADER -->
 
 
     <!-- CONTENT -->
-    <div class="content p-24">
+    <div class="content p-24" *ngIf="allowedToEdit">
 
-        <div fxLayout="column" fxLayoutAlign="center center" id='insert-group-form'>
+        <div fxLayout="column" fxLayoutAlign="center center" id='insert-group-form' *ngIf="isDataLoaded">
 
 
 
-            <form fxLayout="column" [formGroup]="form" class="form-container p-24 mat-elevation-z4">
+            <form fxLayout="column" [formGroup]="form" class="form-container p-24 mat-elevation-z4" >
 
                 <mat-form-field appearance="outline" fxFlex="100">
                     <mat-label>{{'GROUP.INSERT-FORM.NAME' | translate}}</mat-label>
@@ -73,64 +73,16 @@
                     </mat-select>
                 </mat-form-field>
 
-                <h3>{{'GROUP.INSERT-FORM.AUTHORS' | translate}}</h3>
+               
 
-                <div fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutAlign="start center" fxLayoutGap="10px">
-                    <mat-form-field appearance="outline" fxFlex="70">
-                        <mat-label>{{'GROUP.INSERT-FORM.USER' | translate}}</mat-label>
-                        <input type="text" matInput formControlName="selected_user_mail" />
-                    </mat-form-field>
-
-                    <button mat-raised-button type="button" fxFlex="20" class="mb-16" color="accent"
-                        (click)="addAuthors()" [disabled]="loading">
-                        {{'GROUP.INSERT-FORM.ADD-AUTHOR' | translate}}
-                    </button>
-
-                    <div class="spinner-container" *ngIf="loading">
-                        <mat-spinner diameter="24" class="mb-16"></mat-spinner>
-                    </div>
-
-                </div>
-
-
-
-
-
-                <br>
-
-                <div fxLayout="row" class="authors-container">
-                    <mat-grid-list cols="2">
-
-                        <div class="author-item">
-                            <b class="auth-item-icon">
-                                <mat-icon role="img" class="mat-icon v-a-m" aria-hidden="true"
-                                    data-mat-icon-type="font">account_circle</mat-icon>
-                            </b>
-                            <b class="pr-24">
-                                Me
-                            </b>
-                        </div>
-
-                        <div *ngFor="let auth of authors" class="author-item">
-                            <b class="auth-item-icon">
-                                <mat-icon role="img" class="mat-icon v-a-m" aria-hidden="true"
-                                    data-mat-icon-type="font">account_circle</mat-icon>
-                            </b>
-                            <b>
-                                {{ auth.username }} ({{ auth.email }})
-                            </b>
-                            <button mat-button color="primary" type="button" (click)="deleteAuthor(auth._id)">
-                                <mat-icon role="img" class="mat-icon v-a-m" aria-hidden="true"
-                                    data-mat-icon-type="font">close</mat-icon>
-
-                            </button>
-                        </div>
-
-                    </mat-grid-list>
-                </div>
 
 
                 <h3>{{'GROUP.INSERT-FORM.IMAGE' | translate}}</h3>
+
+                <div class="">
+                    <img class="card-image top-radius pointer mb-16" [src]="cover_image.data" *ngIf="cover_image && cover_image.type.match('image.*')" style="max-height: 80px;">
+                </div>
+
                 <div class="custom-dropzone mb-24" ngx-dropzone [id]="1" [accept]="'image/*'"
                     (change)="onSelectImg($event)" [maxFileSize]="50000000">
                     <ngx-dropzone-label>
@@ -148,9 +100,9 @@
 
 
                 <div fxLayout="row" fxLayoutAlign="center center">
-                    <button mat-raised-button type="button" color="accent" (click)="insertNewGroup()"
+                    <button mat-raised-button type="button" color="accent" (click)="editGroup()"
                         [disabled]="loading">
-                        {{'GROUP.INSERT-FORM.ADD-BTN' | translate}}
+                        UPDATE
                     </button>
 
                     <div class="spinner-container" *ngIf="loading">

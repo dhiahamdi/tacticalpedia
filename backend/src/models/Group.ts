@@ -36,7 +36,7 @@ const Group = new mongoose.Schema(
         
         
         authors: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-        subsciptions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'subsciptions' }],
+        subsciptions: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
         trainings: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Training' }],
     
     },

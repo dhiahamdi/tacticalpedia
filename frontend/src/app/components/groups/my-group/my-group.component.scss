@@ -1,0 +1,297 @@
+@import "src/@fuse/scss/fuse";
+
+    .center {
+
+        .header {
+            
+            .search-wrapper {
+                border-radius: 28px;
+                overflow: hidden;
+                @include mat-elevation(1);
+
+                .sidebar-toggle {
+                    margin: 0 0 0 6px;
+                    width: 56px;
+                    height: 56px;
+                    border-radius: 0;
+                    border-right: 1px solid;
+                }
+
+                .search {
+                    width: 100%;
+                    height: 56px;
+                    line-height: 56px;
+                    padding: 0 18px;
+
+                    input {
+                        height: 56px;
+                        min-height: 56px;
+                        max-height: 56px;
+                        padding: 0 16px;
+                        border: none;
+                        outline: none;
+                    }
+                }
+            }
+        }
+
+        .content-card {
+
+            .toolbar {
+
+                .toolbar-separator {
+                    height: 32px;
+                    width: 1px;
+                    margin: 0 12px;
+                }
+            }
+
+            @include media-breakpoint(xs) {
+
+                training-list {
+                    border-right: none;
+                }
+
+                training-list,
+                training-details {
+                    flex: 1 0 100%;
+                }
+
+                training-detail {
+                    display: none !important;
+                }
+
+                &.current-mail-selected {
+
+                    .toolbar {
+                        padding-left: 16px !important;
+
+                        .mail-selection {
+                            display: none !important;
+                        }
+                    }
+
+                    .content {
+
+                        training-list {
+                            display: none !important;
+                        }
+
+                        training-detail {
+                            display: flex !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+.training-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 0;
+    border-right: 1px solid;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    .no-messages-text {
+        font-size: 24px;
+        font-weight: 300;
+    }
+
+    .training-list {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+}
+
+
+
+.training-detail {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 24px;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    .select-message-text {
+        font-size: 24px;
+        font-weight: 300;
+    }
+
+    .mail-header {
+        padding-bottom: 16px;
+        border-bottom: 1px solid;
+
+        .actions {
+            min-width: 88px;
+        }
+
+        .subject {
+            font-size: 22px;
+            font-weight: 600;
+        }
+
+        .label {
+            font-size: 11px;
+            border-radius: 4px;
+            margin: 4px 4px 4px 0;
+            padding: 3px 8px;
+
+            .label-color {
+                width: 8px;
+                height: 8px;
+                margin-right: 8px;
+                border-radius: 50%;
+            }
+        }
+    }
+
+    .mail-content {
+
+        padding: 1px 0;
+
+        .to {
+
+            .to-text {
+                margin-right: 4px;
+                text-transform: lowercase;
+            }
+        }
+
+        .info {
+            padding-bottom: 16px;
+
+            .avatar {
+                margin-right: 16px;
+            }
+
+            .name {
+                margin-right: 8px;
+                font-weight: 600;
+            }
+
+            .toggle-details {
+                user-select: none;
+                text-decoration: underline;
+                padding-top: 16px;
+                cursor: pointer;
+                font-weight: 600;
+            }
+
+            .details {
+                padding-top: 8px;
+
+                .title {
+                    font-weight: 600;
+                    margin-right: 6px;
+                }
+            }
+
+        }
+    }
+
+    .mail-attachments {
+        padding: 24px 0;
+        border-top: 1px solid;
+
+        .title {
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .attachment {
+
+            .preview {
+                width: 30px;
+                margin: 0 auto;
+                border-radius: 4px;
+            }
+
+            .link {
+                margin-bottom: 2px;
+            }
+
+            .size {
+                font-size: 11px;
+            }
+        }
+    }
+
+    .mat-grid-tile {
+        border: solid 1px rgba(0, 0, 0, 0.54);
+    }
+
+    .label-user {
+        background: #e7e7e7;
+    }
+
+    .label-color {
+        background: #03a9f4;
+    }
+
+    .label-color-1 {
+        background: rgb(244, 188, 3);
+    }
+    .label-color-2 {
+        background: rgb(28, 167, 0);
+    }
+    .label-color-3 {
+        background: rgb(42, 27, 177);
+    }
+    .label-color-4 {
+        background: rgb(27, 177, 127);
+    }
+    .label-color-5 {
+        background: rgb(177, 142, 27);
+    }
+    .label-color-6 {
+        background: rgb(27, 154, 177);
+    }
+    .label-color-7 {
+        background: rgb(177, 27, 90);
+    }
+
+    .labels {
+        margin-bottom: 20px;
+    }
+
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.training-action-button {
+    margin: 10px 10px;
+}
+
+.attachment-list .attachment {
+    padding: 0px 10px;
+    margin: 10px 0px;
+}
+
+.fields-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.fields-grid .fields-grid-item {
+    font-size: 12px;
+    padding: 10px;
+    border: 1px solid #b3b3b3;
+    line-height: 1.6;
+}
+
+.fields-grid .fields-grid-item span {
+    font-weight: 600;
+}

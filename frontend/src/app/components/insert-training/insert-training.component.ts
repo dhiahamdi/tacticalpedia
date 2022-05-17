@@ -151,10 +151,9 @@ export class InsertTrainingComponent implements OnInit {
 
       //get categories
       this.categories = await this.trainingCustomService.getCategories().toPromise();
-      console.log('caaaaaaaaaaaaaaaaaaat',this.categories);
       //get default categories
       this.defaultCategories = await this.adminCustomizeService.getCategories().toPromise();
-      console.log('defaut',this.categories);
+
       this.categories = this.categories.concat(this.defaultCategories);
       
       //get taxonomies
@@ -162,7 +161,7 @@ export class InsertTrainingComponent implements OnInit {
       this.defaultTaxonomies = await this.adminCustomizeService.getTaxonomies().toPromise()
       //get default taxonomies
       this.taxonomies = this.customTaxonomies.concat(this.defaultTaxonomies);
-      console.log('taxoooon',this.categories);
+
       //add form controls
       this.taxonomies.forEach((tax)=>{
         const fc = new FormControl('');
@@ -227,8 +226,8 @@ export class InsertTrainingComponent implements OnInit {
 
     const training = {};
 
-    training['taxonomies'] = [''];
-    training['selectTaxonomies'] = [''];
+    training['taxonomies'] = [];
+    training['selectTaxonomies'] = [];
 
     Object.keys(s1.controls).forEach(key => {
       training[key] = s1.get(key).value;
@@ -245,7 +244,6 @@ export class InsertTrainingComponent implements OnInit {
       if(s3.controls[key].elementType === 'taxonomy'){
         //this is a custom taxonomy
         let label: string;
-        console.log("this.taxonomies",this.taxonomies)
         for (let tax of this.taxonomies){
           if(tax.slug === key) label = tax.label;
         }

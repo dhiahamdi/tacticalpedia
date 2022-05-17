@@ -50,6 +50,15 @@ export default class GroupDao {
             //.populate({ path: 'trainings', select: ['image','category'] })
     }
 
+    public static async getUserGroup(userId : string): Promise<Group[]> {
+        return await GroupModel.find({authors : userId })
+        .populate({ path: 'authors', select: ['profile' , 'email'] } )
+        .populate( { path: 'subsciptions', select: ['profile' , 'email'] })
+    }
+    public static async getUserGroupSubs(userId : string): Promise<Group[]> {
+        return await GroupModel.find({subsciptions : userId }).populate({ path: 'authors', select: ['profile'] })
+    }
+
 
 
     public static async getImgPath(Id: string): Promise<string> {

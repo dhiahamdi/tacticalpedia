@@ -44,6 +44,8 @@ export class Training {
 
     tacticalpad_publishing_id?: string;
 
+    groups?: string[];
+
 
     constructor(training){
 
@@ -77,5 +79,8 @@ export class Training {
         this.files = training.files;
         this.tacticalpad_publishing_id = training.tacticalpad_publishing_id;
 
+        this.groups = training.groups;
+
     }
 }
+

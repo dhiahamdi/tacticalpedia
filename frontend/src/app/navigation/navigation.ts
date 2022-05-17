@@ -19,31 +19,6 @@ const navigation: FuseNavigation[] = [
         ]
 
     },
-    {   
-        id       : 'groups',
-        title    : 'groups',
-        translate: 'NAV.GROUPS',
-        type     : 'group',
-        children : [
-            {
-                id       : 'groups-library',
-                title    : 'Groups Library',
-                translate: 'NAV.GROUPS',
-                type     : 'item',
-                icon     : 'library_books',
-                url      : 'groups/groups-library'
-            },
-            {
-                id       : 'groups-insert',
-                title    : 'Insert Group',
-                translate: 'Insert Group',
-                type     : 'item',
-                icon     : 'add',
-                url      : 'group/insert'
-            },
-        ]
-    },
-        
 
     {   
         id       : 'training',
@@ -84,6 +59,46 @@ const navigation: FuseNavigation[] = [
                 url      : '/training/customize'
             }
         ]
+    },
+    {   
+        id       : 'group',
+        title    : 'Group',
+        type     : 'group',
+        children : [
+            {
+                id       : 'group-explore',
+                title    : 'Explore Groups',
+                translate: 'NAV.Group_EXPLORE',
+                type     : 'item',
+                icon     : 'book',
+                url      : '/group/library'
+            },
+            {
+                id       : 'insert-group',
+                title    : 'Insert group',
+                translate: 'NAV.INSERT_GROUP',
+                type     : 'item',
+                icon     : 'add',
+                url      : '/group/insert'
+            },
+            {
+                id       : 'my-groups',
+                title    : 'My groups',
+                translate: 'NAV.Group_LIBRARY',
+                type     : 'item',
+                icon     : 'book',
+                url      : '/group/mygroups'
+            },
+            {
+                id       : 'group-subs',
+                title    : 'Subscription',
+                type     : 'item',
+                icon     : 'book',
+                url      : '/group/subs'
+            },
+            
+            
+        ]
     }
 
 ];
@@ -115,3 +130,4 @@ const adminNavigation = [...navigation,
 ];
 
 export { navigation, adminNavigation};
+

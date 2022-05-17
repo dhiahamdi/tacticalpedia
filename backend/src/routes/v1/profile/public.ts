@@ -1,5 +1,7 @@
 import express from 'express';
 import ProfileService from '../../../services/profile';
+const fs = require('fs');
+
 
 const router = express.Router();
 
@@ -90,6 +92,35 @@ router.post('/picture/from-id', async (req, res)=>{
 
         return res.status(200).sendFile(String(profilePic));
 
+
+    }catch(e){
+
+        return res.status(400).send({message: e.message});
+    }
+
+});
+
+// function to encode file data to base64 encoded string
+function base64_encode(file) {
+    // read binary data
+    var bitmap = fs.readFileSync(file);
+    // convert binary data to base64 encoded string
+    
+    //return new Buffer(bitmap).toString('base64');
+    return Buffer.from(bitmap).toString('base64');
+}
+
+
+router.post('/pictures/from-ids', async (req, res)=>{
+
+    const profileService = new ProfileService();
+    const ids = req.body.users ;
+
+    try{
+        //const images =  ids.map( async el => base64_encode(String(await profileService.getProfilePicFromId(el)) ))
+        const imagesx = await Promise.all(ids.map( async (el) : Promise<string> => base64_encode(String(await profileService.getProfilePicFromId(el)) )))
+
+        return res.status(200).send(imagesx);
 
     }catch(e){
 

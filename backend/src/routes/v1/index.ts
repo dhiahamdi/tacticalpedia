@@ -31,7 +31,10 @@ import tacticalpadAuth from './tacticalpad/auth/auth';
 
 import manageUsers from './admin/manage-users';
 import adminCustomization from './admin/customization';
+
+
 import group from './group/group';
+
 
 
 const router = express.Router();
@@ -66,6 +69,7 @@ router.use('/admin', adminCustomization); // Getters do not require admin auth
 router.use('/training', customizePublic); // Get custom options for a given user (for public trainings)
 
 
+
 /**
 * Authentication is needed for theese routes
 */
@@ -84,14 +88,19 @@ router.use('/training', training);
 router.use('/paypal', paypal);
 router.use('/stripe', stripe);
 router.use('/subscription', subscription);
+
 //groups
 router.use('/group', group);
+
+
+
 /**
 * Admin role is needed for theese routes
 */
 
 router.use(isAdmin);
 router.use('/admin', manageUsers);
+
 
 
 

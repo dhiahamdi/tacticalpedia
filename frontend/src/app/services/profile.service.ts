@@ -64,6 +64,11 @@ export class ProfileService {
     return  this.http.post(environment.apiUrl + BackendRoutes.PROFILE_PIC_FROM_ID, {user_id: user_id}, {responseType: "blob"});
   }
 
+  getProfilePicFromIdMany(ids: string[]): Observable<any>{
+
+    return  this.http.post(environment.apiUrl + BackendRoutes.PROFILE_PIC_MANY, {users: ids});
+  }
+
   setLang(lang: string): Observable<any>{
     return this.http.post<any>(environment.apiUrl + BackendRoutes.PROFILE_SET_LANG, {lang: lang});
   }
@@ -75,3 +80,4 @@ export class ProfileService {
     return canPublish.canPublish;
   }
 }
+

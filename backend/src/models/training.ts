@@ -30,7 +30,6 @@ const Training = new mongoose.Schema(
             type: String,
         },
 
-        category: [customizationSchema],
         
         type: {
             type: String,
@@ -65,7 +64,7 @@ const Training = new mongoose.Schema(
         observations: {
             type: String,
         },
-
+        
         developements: {
             type: String,
         },
@@ -75,15 +74,18 @@ const Training = new mongoose.Schema(
         image: [{
             type: String,
         }],
-
+        
         draft: {
             type: Boolean,
         },
 
+        groups: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Group' }],
+        
         taxonomies: [customizationSchema],
-
+        category: [customizationSchema],
+        
         files: [trainingFileSchema],
-
+        
         selectTaxonomies: [new mongoose.Schema({ name: {type: String}, value: {type: [String]}})],
 
         tacticalpad_publishing_id: {

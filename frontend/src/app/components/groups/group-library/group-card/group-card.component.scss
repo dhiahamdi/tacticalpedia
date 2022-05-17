@@ -1,0 +1,55 @@
+.group-item{
+
+    .fuse-card{
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    .card-image-container{
+        max-height: 200px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .group-name{
+        font-weight: 700;
+        cursor: pointer;
+    }
+    
+    .admins-container{
+        margin-top: -20px;
+        padding: 2px 8px;
+        text-align: right;
+
+        :first-child{
+            margin: 0px;
+        }
+    }
+
+    .desc-container{
+        height: 80px;
+        overflow: hidden;
+    }
+
+    .card-footer{
+        border-top: #0000002e 0.5px solid;
+    }
+
+    .user-thumb{
+        box-shadow: rgb(0 0 0 / 16%) 3px 4px 15px;
+        margin-left: -8px;
+    }
+
+    .member-container{
+
+        :nth-child(2) {
+            margin: 0px;
+          }
+    }
+
+    .members-num{
+        display: inline-block;
+        padding: 10px 0px;
+    }
+}

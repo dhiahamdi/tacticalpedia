@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { fuseAnimations } from '@fuse/animations';
 import { FuseConfigService } from '@fuse/services/config.service';
@@ -6,32 +6,22 @@ import { ErrorService } from 'app/services/error.service';
 import { FuseTranslationLoaderService } from '@fuse/services/translation-loader.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { TranslateService } from '@ngx-translate/core';
+import { Router ,ActivatedRoute } from '@angular/router';
 
 import { ManageUsersService } from 'app/services/admin/manage-users.service';
 import { GroupService } from 'app/services/group.service';
+import { AuthenticationService } from 'app/services/authentication.service';
+import { User } from 'app/interfaces/user';
 
 import { Group } from 'app/interfaces/Group';
 
-import { MatSelect } from '@angular/material/select';
-import { ReplaySubject, Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
-
-// Import the locale files
-import { locale as english } from '../../i18n/en';
-import { locale as italian } from '../../i18n/it';
-import { locale as portuguese } from '../../i18n/pt';
-
-import { Router } from '@angular/router';
-
 @Component({
-  selector: 'app-group-insert',
-  templateUrl: './group-insert.component.html',
-  styleUrls: ['./group-insert.component.scss'],
+  selector: 'app-group-edit',
+  templateUrl: './group-edit.component.html',
+  styleUrls: ['./group-edit.component.scss'],
   animations: fuseAnimations
 })
-export class GroupInsertComponent implements OnInit {
-
-  form: FormGroup;
+export class GroupEditComponent implements OnInit {
 
   services_options: string[] = [ 'Training Library', 'Courses', 'Coaching & Tutoring', 'Insight' ,'Q&A','Articles & Publishings'];
   topic_options: string[] =['Training Metodology','Motor Preparation','Psychology  & Communication'];
@@ -39,20 +29,25 @@ export class GroupInsertComponent implements OnInit {
   typology_options: string[] = ['FREE', 'PAYED','SUBSCRIPTION','INVITATION'];
   discipline_options : string[] = ['Football', 'BasketBall', 'Volleyball', 'Rugby', 'Boating','Gymnastics','Other'];
 
+  form: FormGroup;
+
   public authors: any[];
 
   public loading: boolean;
 
+  public isDataLoaded: boolean;
+
   imgFiles: File[] = [];
 
+  public cover_image;
 
+  group_id: string;
+  group_data: Group;
+  public user: User;
+  public allowedToEdit: boolean;
 
-  /**
-    * Constructor
-    *
-    * @param {FormBuilder} _formBuilder
-    */
   constructor(
+    private route: ActivatedRoute,
     private _formBuilder: FormBuilder,
     private _fuseConfigService: FuseConfigService,
     private translationLoader: FuseTranslationLoaderService,
@@ -62,51 +57,92 @@ export class GroupInsertComponent implements OnInit {
     private manageUsersService: ManageUsersService,
     private groupService: GroupService,
     private router: Router,
-  ) { }
+    private authenticationService: AuthenticationService,
+  ) { 
+    this.isDataLoaded = false;
+    this.allowedToEdit = false;
+  }
 
   async ngOnInit(): Promise<void> {
 
-    this.form = this._formBuilder.group({
-      name: ['', Validators.required],
-      description: ['', Validators.required],
-      services: ['' , Validators.required],
-      topic: ['' , Validators.required],
-      policy: ['', Validators.required],
-      discipline: ['', Validators.required],
-      typology: ['', Validators.required],
-      selected_user_mail: [''],
-    });
+    this.group_id = this.route.snapshot.paramMap.get('id');
 
+    this.groupService.getSingleGroup(this.group_id).subscribe(data => {
+      this.group_data = data;
+      console.log(this.group_data)
+
+      this.form = this._formBuilder.group({
+        name: [ this.group_data.name , Validators.required],
+        description: [ this.group_data.description , Validators.required],
+        services: [ this.group_data.services , Validators.required],
+        topic: [ this.group_data.topic , Validators.required],
+        policy: [ this.group_data.privacy , Validators.required],
+        discipline: [ this.group_data?.discipline[0] , Validators.required],
+        typology: [ this.group_data.typology , Validators.required],
+      });
+
+      this.isDataLoaded = true;
+
+      this.groupService.getGroupCover(this.group_data.img).subscribe(
+        async data => {
+  
+          var reader = new FileReader();
+  
+          reader.readAsDataURL(data); // read file as data url
+  
+  
+          reader.onload = (event) => { // called once readAsDataURL is completed
+            this.cover_image = {
+              data: (event.target.result), 
+              type: data.type
+            };
+          }
+
+          if (this.authenticationService.isLogged()) {
+            this.user = await this.authenticationService.getUser().toPromise();
+            if(this.group_data.authors.find(el => el == this.user._id)){
+              
+              this.allowedToEdit = true
+      
+            }else{
+              this.router.navigate(['/group/'+this.group_data._id]);
+            }
+          }else{
+            this.router.navigate(['/group/'+this.group_data._id]);
+          }
+  
+        },
+  
+        err => console.log(err)
+      )
+
+
+    },
+    err => this.handleError(err)
+  );
     this.authors = [];
     this.loading = false;
-
   }
 
 
+  async editGroup(): Promise<void> {
 
-
-  async insertNewGroup(): Promise<void> {
-
-    const group = {}
 
     Object.keys(this.form.controls).forEach(key => {
-      group[key] = this.form.get(key).value;
+      this.group_data[key] = this.form.get(key).value;
     });
-
-    group['privacy'] = this.form.get('policy').value;
-    group['authors'] = this.authors.map(el => el._id);
-    console.log(group)
+    this.group_data['privacy'] = this.form.get('policy').value;
     this.loading = true;
 
     try {
 
-      let grouId = await this.groupService.insertGroup(group as Group);
+      let grouId = await this.groupService.editGroup(this.group_data as Group);
 
       //upload img files
-      if (this.imgFiles) {
+      if (this.imgFiles.length > 0 ) {
 
         const groupImage = new FormData();
-        groupImage.set('_id', grouId);
+        groupImage.set('_id', this.group_data._id);
         for (let file of this.imgFiles)
           groupImage.append('file', file);
 
@@ -115,7 +151,7 @@ export class GroupInsertComponent implements OnInit {
       }
 
       this.loading = false;
-      this.router.navigate(['/group/library']);
+      this.router.navigate(['/group/'+this.group_data._id]);
 
     } catch (e) {
       this.loading = false;
@@ -181,7 +217,6 @@ export class GroupInsertComponent implements OnInit {
       duration: 3000
     });
   }
-
 
 
 }

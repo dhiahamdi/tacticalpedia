@@ -17,7 +17,7 @@ router.post('/', async (req, res) => {
       if(req.body.remember) res.cookie('login', user.cookie);
 
       else res.cookie('login', user.cookie, { maxAge: 900000*6 });
-console.log(user);
+
       return res.status(200).json(user);
 
     }catch(e){

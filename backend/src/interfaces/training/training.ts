@@ -48,5 +48,6 @@ export interface Training {
     updatedAt?: any;
 
     tacticalpad_publishing_id?: string;
+    groups? : string[];
 
 }

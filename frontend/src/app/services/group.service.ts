@@ -92,8 +92,19 @@ export class GroupService {
  * 
  * @returns 
  */
-   getPublicGroups(filters : any): Observable<Group[]> {
+  getPublicGroups(filters : any): Observable<Group[]> {
     return this.http.post<Group[]>(environment.apiUrl + BackendRoutes.GROUPS , filters );
+  }
+
+  getMyGroups(filters : any): Observable<Group[]> {
+    return this.http.post<Group[]>(environment.apiUrl + BackendRoutes.GROUPS_USER , filters  );
+  }
+  getMyGroupSub(filters : any): Observable<Group[]> {
+    return this.http.post<Group[]>(environment.apiUrl + BackendRoutes.GROUPS_USER_SUB , filters  );
+  }
+
+  getSingleGroup( id : string): Observable<Group> {
+    return this.http.get<Group>(environment.apiUrl + BackendRoutes.GROUPS_SINGLE + id  );
   }
 
 
@@ -103,5 +114,104 @@ export class GroupService {
   }
 
 
+  async addGroupTraining(groupId: string , trainingId : string): Promise<string> {
+
+    try {
+
+      const data = await this.http.post<any>(environment.apiUrl + BackendRoutes.GROUP_ADD_TRAINING, {groupId ,trainingId }).toPromise();
+      return String(data.GroupId);
+
+    } catch (e) {
+
+      throw (e);
+    }
+  }
+
+  async removeGroupTraining(groupId: string , trainingId : string): Promise<string> {
+
+    try {
+
+      const data = await this.http.post<any>(environment.apiUrl + BackendRoutes.GROUP_REMOVE_TRAINING, {groupId ,trainingId }).toPromise();
+      return String(data.GroupId);
+
+    } catch (e) {
+
+      throw (e);
+    }
+  }
+
+
+  getGroupTrainings(id : string): Observable<Training[]> {
+    return this.http.get<Training[]>(environment.apiUrl + BackendRoutes.GROUPS_TRAINING + id  );
+  }
+
+
+  async addGroupAuthor(groupId: string , Id : string): Promise<string> {
+
+    try {
+
+      const data = await this.http.post<any>(environment.apiUrl + BackendRoutes.GROUP_ADD_AUTHOR, { group_id : groupId , user_id : Id }).toPromise();
+      return String(data.GroupId);
+
+    } catch (e) {
+
+      throw (e);
+    }
+  }
+
+  async addGroupAuthorByEmail(groupId: string , Id : string): Promise<string> {
+
+    try {
+
+      const data = await this.http.post<any>(environment.apiUrl + BackendRoutes.GROUP_ADD_AUTHOR_EMAIL, { group_id : groupId , user_id : Id }).toPromise();
+      return String(data.GroupId);
+
+    } catch (e) {
+
+      throw (e);
+    }
+  }
+
+  async removeGroupAuthor(groupId: string , Id : string): Promise<string> {
+
+    try {
+
+      const data = await this.http.post<any>(environment.apiUrl + BackendRoutes.GROUP_REMOVE_AUTHOR, { group_id : groupId , user_id : Id }).toPromise();
+      return String(data.GroupId);
+
+    } catch (e) {
+
+      throw (e);
+    }
+  }
+
+  async addGroupSubs(groupId: string , Id : string): Promise<string> {
+
+    try {
+
+      const data = await this.http.post<any>(environment.apiUrl + BackendRoutes.GROUP_ADD_SUBSCRIPTION, { group_id : groupId , user_id : Id }).toPromise();
+      return String(data.GroupId);
+
+    } catch (e) {
+
+      throw (e);
+    }
+  }
+
+  async removeGroupSubs(groupId: string , Id : string): Promise<string> {
+
+    try {
+
+      const data = await this.http.post<any>(environment.apiUrl + BackendRoutes.GROUP_REMOVE_SUBSCRIPTION, { group_id : groupId , user_id : Id }).toPromise();
+      return String(data.GroupId);
+
+    } catch (e) {
+
+      throw (e);
+    }
+  }
+
+
 
 }
+

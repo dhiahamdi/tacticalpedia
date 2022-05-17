@@ -1,0 +1,179 @@
+<div id="order" class="page-layout carded fullwidth inner-scroll" *ngIf="isDataLoaded">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center" class="header-row">
+
+                <button mat-icon-button class="mr-16" (click)="goBack()">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2">
+                        {{group_data.name}}
+                    </div>
+                    <div class="subtitle secondary-text" [routerLink]="['/group/edit/' + group_data._id ]"
+                        *ngIf="allowedToEdit" style="cursor: pointer;">
+                        Edit
+                        <mat-icon class="edit-icon">edit</mat-icon>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content" [ngStyle]="{ 'display': fullscreenOpen ? 'flex': 'block' }">
+
+
+                <div fxFlex="100%" style="display: none" *ngIf="fullscreenOpen"></div>
+
+                <mat-tab-group dynamicHeight="true" selectedIndex="{{ selectedTab }}">
+
+                    <mat-tab label="Home">
+                        <div fxLayout='column' class="content-wrapper">
+
+                            <div fxLayout='row' fxLayout.lt-sm="column" fxLayoutAlign="start"
+                                class="mt-16  pl-32 pr-32 pb-32 ">
+
+                                <span fxFlex></span>
+
+                                <div fxLayout='column' fxFlex="1 1 calc(60%)" fxFlex.lt-sm="100%">
+                                    <div fxLayout='column' fxLayout.lt-sm="row" fxLayoutAlign="start" class="pb-16">
+                                        <h3 class="h3 days-one mb-0" fxLayout='row'>Description</h3>
+                                        <p class="mt-0">{{group_data?.description}}</p>
+                                    </div>
+                                    <div fxLayout='column' fxLayout.lt-sm="row" fxLayoutAlign="start"
+                                        class="pb-16 mt-32">
+                                        <h3 class="h3 days-one mb-0" fxLayout='row'>Services</h3>
+                                        <p class="mt-0" *ngIf="group_data?.services">{{ group_data?.services.join(' ,
+                                            ')}}</p>
+                                    </div>
+                                </div>
+                                <div fxLayout='column' fxFlex="1 1 calc(40%)" fxFlex.lt-sm="100%">
+                                    <div fxLayout='column' fxLayout.lt-sm="column" fxLayoutAlign="start" class="pb-16">
+                                        <h3 class="h3 days-one">Authors ({{authors_img?.length}})</h3>
+                                        <div fxLayout='row' fxLayout.lt-sm="column" fxLayoutAlign="start" class="pb-16"
+                                            *ngIf="isAuthorsImgLoaded">
+                                            <img *ngFor="let el of authors_img"
+                                                class="w-40 h-40 border-radius-100 user-thumb mr-4"
+                                                src="data:image/png;base64,{{el}}" title="">
+                                        </div>
+                                    </div>
+
+                                    <div fxLayout='column' fxLayout.lt-sm="column" fxLayoutAlign="start" class="pb-16">
+                                        <h3 class="h3 days-one">Members ({{members_img?.length}})</h3>
+                                        <div fxLayout='row' fxLayout.lt-sm="column" fxLayoutAlign="start" class="pb-16"
+                                            *ngIf="isMembersImgLoaded">
+                                            <img *ngFor="let el of members_img"
+                                                class="w-40 h-40 border-radius-100 user-thumb mr-4"
+                                                src="data:image/png;base64,{{el}}" title="">
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+
+
+                            <span fxFlex></span>
+
+                        </div>
+                    </mat-tab>
+
+
+
+                    <mat-tab label="Library">
+                        <div fxLayout='column' class="content-wrapper">
+
+                            <div fxLayout='row' fxLayout.lt-sm="column" fxLayoutAlign="start"
+                                class="mt-16  pl-32 pr-32 pb-32 ">
+
+                                <training-card class="mb-24 mr-8" [@animate]="{value:'*',params:{y:'100%'}}"
+                                    *ngFor="let training of trainings" [training]="training" fxFlex="0 1 calc(25%)"
+                                    fxFlex.lt-md="0 1 calc(50%)" fxFlex.lt-sm="100%">
+                                </training-card>
+
+                            </div>
+                        </div>
+                    </mat-tab>
+
+
+
+
+                    <mat-tab label="Insights">
+                        <div fxLayout='column' class="content-wrapper">
+
+                            <div fxLayout='row' fxLayout.lt-sm="column" fxLayoutAlign="start"
+                                class="mt-16  pl-32 pr-32 pb-32 ">
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Ask the coach">
+                        <div fxLayout='column' class="content-wrapper">
+
+                            <div fxLayout='row' fxLayout.lt-sm="column" fxLayoutAlign="start"
+                                class="mt-16  pl-32 pr-32 pb-32 ">
+                            </div>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="Docs & Multimedia">
+                        <div fxLayout='column' class="content-wrapper">
+
+                            <div fxLayout='row' fxLayout.lt-sm="column" fxLayoutAlign="start"
+                                class="mt-16  pl-32 pr-32 pb-32 ">
+                            </div>
+                        </div>
+                    </mat-tab>
+
+                    <mat-tab label="Conference room">
+                        <div fxLayout='column' class="content-wrapper">
+
+                            <div fxLayout='row' fxLayout.lt-sm="column" fxLayoutAlign="start"
+                                class="mt-16  pl-32 pr-32 pb-32 ">
+                            </div>
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Didactics">
+                        <div fxLayout='column' class="content-wrapper">
+
+                            <div fxLayout='row' fxLayout.lt-sm="column" fxLayoutAlign="start"
+                                class="mt-16  pl-32 pr-32 pb-32 ">
+                            </div>
+                        </div>
+                    </mat-tab>
+
+
+
+                </mat-tab-group>
+
+
+
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+</div>
